@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        class="de.diedavids.cuba.healthcheck.web.screens.AppMainWindowWithHealthCheckIndicator"
+        extends="/com/haulmont/cuba/web/app/mainwindow/mainwindow.xml"
+        messagesPack="de.diedavids.cuba.healthcheck.web.screens"
+        xmlns:ext="http://schemas.haulmont.com/cuba/window-ext.xsd">
+    <dialogMode height="600"
+                width="800"/>
+    <layout>
+        <hbox id="titleBar">
+            <button id="healthCheckStatusBtn"
+                    ext:index="2"
+                    caption=""
+                    visible="false"
+            />
+        </hbox>
+    </layout>
+</window>

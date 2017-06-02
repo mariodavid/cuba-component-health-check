@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckrun.HealthCheckRunEdit"
+        datasource="healthCheckRunDs"
+        focusComponent="fieldGroup"
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckrun">
+    <dsContext>
+        <datasource id="healthCheckRunDs"
+                    class="de.diedavids.cuba.healthcheck.entity.HealthCheckRun"
+                    view="healthCheckRun-view">
+            <collectionDatasource id="resultsDs"
+                                  property="results"/>
+        </datasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="resultsBox"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="healthCheckRunDs">
+            <column width="250px">
+                <field property="executedAt"
+                       editable="false"/>
+                <field property="summary"
+                       editable="false"/>
+                <field property="result"
+                       editable="false"/>
+            </column>
+        </fieldGroup>
+        <groupBox id="resultsBox"
+                  caption="msg://de.diedavids.cuba.healthcheck.entity/HealthCheckRun.results">
+            <table id="resultsTable"
+                   height="100%"
+                   width="100%">
+                <columns>
+                    <column id="name"/>
+                    <column id="result"/>
+                    <column id="summary"/>
+                </columns>
+                <rows datasource="resultsDs"/>
+            </table>
+        </groupBox>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

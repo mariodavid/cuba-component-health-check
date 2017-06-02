@@ -1,0 +1,6 @@
+rootProject.name = 'cuba-component-health-check'
+include(':health-check-global', ':health-check-core', ':health-check-gui', ':health-check-web')
+project(':health-check-global').projectDir = new File(settingsDir, 'modules/global')
+project(':health-check-core').projectDir = new File(settingsDir, 'modules/core')
+project(':health-check-gui').projectDir = new File(settingsDir, 'modules/gui')
+project(':health-check-web').projectDir = new File(settingsDir, 'modules/web')

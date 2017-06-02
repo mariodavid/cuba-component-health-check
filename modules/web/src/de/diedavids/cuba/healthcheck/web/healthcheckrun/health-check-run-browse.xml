@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckrun.HealthCheckRunBrowse"
+        focusComponent="healthCheckRunsTable"
+        lookupComponent="healthCheckRunsTable"
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckrun">
+    <dsContext>
+        <groupDatasource id="healthCheckRunsDs"
+                         class="de.diedavids.cuba.healthcheck.entity.HealthCheckRun"
+                         view="healthCheckRun-view">
+            <query>
+                <![CDATA[select e from ddchc$HealthCheckRun e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="healthCheckRunsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="healthCheckRunsTable"
+                datasource="healthCheckRunsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="healthCheckRunsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+                <action id="runHealthChecksAction"
+                        invoke="runHealthChecks"
+                        caption="msg://runHealthChecks"
+                />
+            </actions>
+            <columns>
+                <column id="executedAt"/>
+                <column id="result"/>
+                <column id="summary"/>
+            </columns>
+            <rows datasource="healthCheckRunsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="healthCheckRunsTable.create"/>
+                <button id="editBtn"
+                        action="healthCheckRunsTable.edit"/>
+                <button id="removeBtn"
+                        action="healthCheckRunsTable.remove"/>
+                <button id="runHealthChecks"
+                        action="healthCheckRunsTable.runHealthChecksAction"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

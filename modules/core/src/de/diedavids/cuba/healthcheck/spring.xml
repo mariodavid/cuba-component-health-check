@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:metrics="http://www.ryantenney.com/schema/metrics"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.ryantenney.com/schema/metrics
+       http://www.ryantenney.com/schema/metrics/metrics.xsd">
+
+    <!-- Annotation-based beans -->
+    <context:component-scan base-package="de.diedavids.cuba.healthcheck"/>
+
+
+
+    <!-- Creates a MetricRegistry bean -->
+    <metrics:metric-registry id="metricRegistry" />
+
+    <!-- Creates a HealthCheckRegistry bean (Optional) -->
+    <metrics:health-check-registry id="healthCheckRegistry" />
+
+    <metrics:annotation-driven health-check-registry="healthCheckRegistry" metric-registry="metricRegistry" />
+</beans>
