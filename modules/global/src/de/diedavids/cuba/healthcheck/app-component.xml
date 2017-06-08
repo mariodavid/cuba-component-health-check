@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.cuba">
+    <module blocks="*"
+            name="global">
+        <artifact appJar="true"
+                  name="health-check-global"/>
+        <property name="cuba.persistenceConfig"
+                  value="+de/diedavids/cuba/healthcheck/persistence.xml"/>
+        <property name="cuba.metadataConfig"
+                  value="+de/diedavids/cuba/healthcheck/metadata.xml"/>
+        <property name="cuba.viewsConfig"
+                  value="+de/diedavids/cuba/healthcheck/views.xml"/>
+    </module>
+    <module blocks="core"
+            dependsOn="global"
+            name="core">
+        <artifact appJar="true"
+                  name="health-check-core"/>
+        <artifact classifier="db"
+                  configuration="dbscripts"
+                  ext="zip"
+                  name="health-check-core"/>
+        <property name="cuba.springContextConfig"
+                  value="+de/diedavids/cuba/healthcheck/spring.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+de.diedavids.cuba.healthcheck.core"/>
+    </module>
+    <module blocks="web,desktop"
+            dependsOn="global"
+            name="gui">
+        <artifact appJar="true"
+                  name="health-check-gui"/>
+    </module>
+    <module blocks="web"
+            dependsOn="gui"
+            name="web">
+        <artifact appJar="true"
+                  name="health-check-web"/>
+        <artifact classifier="web"
+                  configuration="webcontent"
+                  ext="zip"
+                  name="health-check-web"/>
+        <property name="cuba.springContextConfig"
+                  value="+de/diedavids/cuba/healthcheck/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig"
+                  value="+de/diedavids/cuba/healthcheck/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig"
+                  value="+de/diedavids/cuba/healthcheck/web-screens.xml"/>
+        <property name="cuba.menuConfig"
+                  value="+de/diedavids/cuba/healthcheck/web-menu.xml"/>
+        <property name="cuba.permissionConfig"
+                  value="+de/diedavids/cuba/healthcheck/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack"
+                  value="+de.diedavids.cuba.healthcheck.web"/>
+    </module>
+</app-component>

@@ -36,7 +36,6 @@
             </actions>
             <columns>
                 <column id="executedAt"/>
-                <column id="result"/>
                 <column id="summary"/>
             </columns>
             <rows datasource="healthCheckRunsDs"/>

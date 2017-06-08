@@ -3,6 +3,7 @@ package de.diedavids.cuba.healthcheck.service
 import com.codahale.metrics.health.HealthCheck
 import com.codahale.metrics.health.HealthCheckRegistry
 import com.haulmont.cuba.core.global.*
+import de.diedavids.cuba.healthcheck.core.HealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRun
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Service
 import javax.inject.Inject
 
 @Service(HealthCheckService.NAME)
-public class HealthCheckServiceBean implements HealthCheckService {
+class HealthCheckServiceBean implements HealthCheckService {
 
 
+    @Inject
+    HealthCheckConfiguration healthCheckConfiguration
     @Inject
     HealthCheckRegistry healthCheckRegistry
 
@@ -27,6 +30,10 @@ public class HealthCheckServiceBean implements HealthCheckService {
     TimeSource timeSource
     @Override
     HealthCheckRun runHealthChecks() {
+
+        List<HealthCheckConfiguration.HealthCheckInfo> healthCheckInfos = healthCheckConfiguration.healthChecks
+
+
         SortedMap<String, HealthCheck.Result> healthCheckResults = healthCheckRegistry.runHealthChecks()
 
         saveResults(healthCheckResults)

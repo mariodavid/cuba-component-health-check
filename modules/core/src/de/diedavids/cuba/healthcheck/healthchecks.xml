@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<checks xmlns="http://schemas.diedavids.de/cuba/health-check/health-check.xsd">
+    <databaseEntityHealthCheck name="roleExistsDeclarativly" entity="sec$Role">
+        <jpql><![CDATA[select e from sec$Role e where e.name = 'my-declarative-role']]></jpql>
+    </databaseEntityHealthCheck>
+
+    <httpConnectionHealthCheck name="test" />
+</checks>

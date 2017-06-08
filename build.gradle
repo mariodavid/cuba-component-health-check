@@ -9,9 +9,6 @@ buildscript {
                 password(rootProject.hasProperty('repoPass') ? rootProject['repoPass'] : 'cuba123')
             }
         }
-        
-        
-        
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
@@ -59,6 +56,12 @@ configure([globalModule, coreModule, guiModule, webModule]) {
 
     dependencies {
         testCompile('junit:junit:4.12')
+
+
+        testCompile('org.spockframework:spock-core:1.0-groovy-2.4')
+        testCompile('org.springframework:spring-test:4.3.1.RELEASE')
+        testRuntime "cglib:cglib-nodep:3.2.4"
+
     }
 
     task sourceJar(type: Jar) {
@@ -82,6 +85,13 @@ configure([globalModule, coreModule, guiModule, webModule]) {
 
 configure(globalModule) {
     task enhance(type: CubaEnhancing)
+
+    jar {
+        manifest {
+            attributes('App-Component-Id': cuba.artifact.group)
+            attributes('App-Component-Version': cuba.artifact.version + (cuba.artifact.isSnapshot ? '-SNAPSHOT' : ''))
+        }
+    }
 
     
 }

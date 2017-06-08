@@ -7,6 +7,7 @@ import com.haulmont.cuba.gui.components.Component
 import com.haulmont.cuba.gui.components.actions.BaseAction
 import com.haulmont.cuba.security.entity.EntityOp
 import com.haulmont.cuba.web.app.mainwindow.AppMainWindow
+import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRun
 import de.diedavids.cuba.healthcheck.service.HealthCheckService
 
@@ -34,6 +35,12 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
             if (healthCheckRun) {
                 healthCheckStatusBtn.visible = security.isEntityOpPermitted(HealthCheckRun, EntityOp.READ)
                 healthCheckStatusBtn.icon = healthCheckRun.result.icon
+                if (healthCheckRun.result == HealthCheckResultType.ERROR) {
+                    healthCheckStatusBtn.styleName = 'warning'
+                }
+                else {
+                    healthCheckStatusBtn.styleName = 'friendly'
+                }
                 healthCheckStatusBtn.action = new BaseAction('showHealthCheck') {
                     @Override
                     void actionPerform(Component component) {
