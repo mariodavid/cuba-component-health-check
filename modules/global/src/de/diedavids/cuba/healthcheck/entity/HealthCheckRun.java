@@ -23,16 +23,38 @@ public class HealthCheckRun extends StandardEntity {
     @Column(name = "EXECUTED_AT", nullable = false)
     protected Date executedAt;
 
-    @Column(name = "SUMMARY", length = 4000)
-    protected String summary;
-
     @Column(name = "RESULT_", nullable = false)
     protected String result;
+
+    @Column(name = "SUMMARY")
+    protected String summary;
+
+    @Column(name = "DETAILED_MESSAGE", length = 400)
+    protected String detailedMessage;
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "healthCheckRun")
     protected List<HealthCheckRunResult> results;
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+
+    public void setDetailedMessage(String detailedMessage) {
+        this.detailedMessage = detailedMessage;
+    }
+
+    public String getDetailedMessage() {
+        return detailedMessage;
+    }
+
+
 
     public void setExecutedAt(Date executedAt) {
         this.executedAt = executedAt;
@@ -60,14 +82,6 @@ public class HealthCheckRun extends StandardEntity {
         return result == null ? null : HealthCheckResultType.fromId(result);
     }
 
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
 
 
 }

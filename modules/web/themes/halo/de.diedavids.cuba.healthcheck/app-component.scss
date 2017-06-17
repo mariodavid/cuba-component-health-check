@@ -1,0 +1,5 @@
+@import "halo-ext";
+
+@mixin de_diedavids_cuba_healthcheck {
+  @include de_diedavids_cuba_healthcheck-halo-ext;
+}

@@ -1,0 +1,11 @@
+@import "halo-defaults";
+@import "de.diedavids.cuba.healthcheck/halo-ext-defaults";
+@import "app-components";
+@import "de.diedavids.cuba.healthcheck/halo-ext";
+
+.halo {
+  // include auto-generated app components SCSS
+  @include app_components;
+  
+  @include de_diedavids_cuba_healthcheck-halo-ext;
+}

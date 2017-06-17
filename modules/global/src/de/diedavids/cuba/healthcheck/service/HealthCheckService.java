@@ -8,5 +8,7 @@ public interface HealthCheckService {
 
     HealthCheckRun runHealthChecks();
 
+    HealthCheckRun runHealthChecksWithFrequency(int frequencyInt);
+
     HealthCheckRun getLatestHealthCheck();
 }

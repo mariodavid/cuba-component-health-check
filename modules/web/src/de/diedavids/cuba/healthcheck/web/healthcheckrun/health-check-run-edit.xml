@@ -9,39 +9,67 @@
         <datasource id="healthCheckRunDs"
                     class="de.diedavids.cuba.healthcheck.entity.HealthCheckRun"
                     view="healthCheckRun-view">
-            <collectionDatasource id="resultsDs"
-                                  property="results"/>
+            <groupDatasource id="resultsDs"
+                             property="results"/>
         </datasource>
     </dsContext>
+    <actions>
+        <action id="closeAction"
+                invoke="close"/>
+    </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="resultsBox"
+    <layout expand="tabSheet"
             spacing="true">
         <fieldGroup id="fieldGroup"
                     datasource="healthCheckRunDs">
             <column width="250px">
-                <field property="executedAt"
-                       editable="false"/>
-                <field property="summary"
-                       editable="false"/>
-                <field property="result"
-                       editable="false"/>
+                <field editable="false"
+                       property="executedAt"/>
+            </column>
+            <column width="250px">
+                <field editable="false"
+                       property="result"/>
+            </column>
+            <column width="250px">
+                <field editable="false"
+                       property="summary"/>
             </column>
         </fieldGroup>
-        <groupBox id="resultsBox"
-                  caption="msg://de.diedavids.cuba.healthcheck.entity/HealthCheckRun.results">
-            <table id="resultsTable"
-                   height="100%"
-                   width="100%">
-                <columns>
-                    <column id="name"/>
-                    <column id="result"/>
-                    <column id="summary"/>
-                </columns>
-                <rows datasource="resultsDs"/>
-            </table>
-        </groupBox>
-        <frame id="windowActions"
-               screen="editWindowActions"/>
+        <tabSheet id="tabSheet">
+            <tab id="resultsTab"
+                 caption="msg://results"
+                 margin="true">
+                <groupTable id="resultsTable"
+                            height="100%"
+                            width="100%">
+                    <columns>
+                        <group>
+                            <column id="category"/>
+                        </group>
+                        <column id="name"/>
+                        <column id="result"/>
+                        <column id="message"/>
+                        <column id="detailedMessage"
+                                maxTextLength="30"/>
+                    </columns>
+                    <rows datasource="resultsDs"/>
+                </groupTable>
+            </tab>
+            <tab id="detailedMessageTab"
+                 caption="msg://detailedMessage"
+                 margin="true">
+                <textArea id="detailedMessageTextArea"
+                          datasource="healthCheckRunDs"
+                          editable="false"
+                          height="100%"
+                          property="detailedMessage"
+                          width="100%"/>
+            </tab>
+        </tabSheet>
+        <button id="closeBtn"
+                action="closeAction"
+                caption="mainMsg://actions.Close"
+                icon="icons/ok.png"/>
     </layout>
 </window>

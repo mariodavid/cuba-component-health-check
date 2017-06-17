@@ -10,7 +10,7 @@
                          class="de.diedavids.cuba.healthcheck.entity.HealthCheckRun"
                          view="healthCheckRun-view">
             <query>
-                <![CDATA[select e from ddchc$HealthCheckRun e]]>
+                <![CDATA[select e from ddchc$HealthCheckRun e order by e.executedAt desc]]>
             </query>
         </groupDatasource>
     </dsContext>
@@ -26,15 +26,14 @@
         <groupTable id="healthCheckRunsTable"
                     width="100%">
             <actions>
-                <action id="create"/>
                 <action id="edit"/>
                 <action id="remove"/>
                 <action id="runHealthChecksAction"
-                        invoke="runHealthChecks"
                         caption="msg://runHealthChecks"
-                />
+                        invoke="runHealthChecks"/>
             </actions>
             <columns>
+                <column id="result"/>
                 <column id="executedAt"/>
                 <column id="summary"/>
             </columns>
@@ -42,14 +41,14 @@
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn"
-                        action="healthCheckRunsTable.create"/>
+                <button id="runHealthChecksBtn"
+                        action="healthCheckRunsTable.runHealthChecksAction"
+                        disableOnClick="true"
+                        icon="font-icon:PLAY_CIRCLE_O"/>
                 <button id="editBtn"
                         action="healthCheckRunsTable.edit"/>
                 <button id="removeBtn"
                         action="healthCheckRunsTable.remove"/>
-                <button id="runHealthChecks"
-                        action="healthCheckRunsTable.runHealthChecksAction"/>
             </buttonsPanel>
         </groupTable>
     </layout>

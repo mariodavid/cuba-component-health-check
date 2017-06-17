@@ -21,12 +21,45 @@ public class HealthCheckRunResult extends StandardEntity {
     @Column(name = "RESULT_", nullable = false)
     protected String result;
 
-    @Column(name = "SUMMARY")
-    protected String summary;
+    @Column(name = "CATEGORY")
+    protected String category;
+
+    @Column(name = "MESSAGE")
+    protected String message;
+
+    @Column(name = "DETAILED_MESSAGE", length = 4000)
+    protected String detailedMessage;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "HEALTH_CHECK_RUN_ID")
     protected HealthCheckRun healthCheckRun;
+
+    public void setDetailedMessage(String detailedMessage) {
+        this.detailedMessage = detailedMessage;
+    }
+
+    public String getDetailedMessage() {
+        return detailedMessage;
+    }
+
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
 
     public void setHealthCheckRun(HealthCheckRun healthCheckRun) {
         this.healthCheckRun = healthCheckRun;
@@ -51,14 +84,6 @@ public class HealthCheckRunResult extends StandardEntity {
 
     public HealthCheckResultType getResult() {
         return result == null ? null : HealthCheckResultType.fromId(result);
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getSummary() {
-        return summary;
     }
 
 

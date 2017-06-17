@@ -1,12 +1,14 @@
 package de.diedavids.cuba.healthcheck.service
 
-import com.codahale.metrics.health.HealthCheck
-import com.codahale.metrics.health.HealthCheckRegistry
 import com.haulmont.cuba.core.global.*
+import de.diedavids.cuba.healthcheck.HealthCheck
 import de.diedavids.cuba.healthcheck.core.HealthCheckConfiguration
+import de.diedavids.cuba.healthcheck.core.healthchecks.AbstractHealthCheck
 import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRun
+import de.diedavids.cuba.healthcheck.entity.HealthCheckRunFrequency
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult
+import org.apache.commons.lang.exception.ExceptionUtils
 import org.springframework.stereotype.Service
 
 import javax.inject.Inject
@@ -17,8 +19,6 @@ class HealthCheckServiceBean implements HealthCheckService {
 
     @Inject
     HealthCheckConfiguration healthCheckConfiguration
-    @Inject
-    HealthCheckRegistry healthCheckRegistry
 
     @Inject
     DataManager dataManager
@@ -28,15 +28,33 @@ class HealthCheckServiceBean implements HealthCheckService {
 
     @Inject
     TimeSource timeSource
+
     @Override
     HealthCheckRun runHealthChecks() {
 
         List<HealthCheckConfiguration.HealthCheckInfo> healthCheckInfos = healthCheckConfiguration.healthChecks
 
 
-        SortedMap<String, HealthCheck.Result> healthCheckResults = healthCheckRegistry.runHealthChecks()
+        def run = createHealthCheckRun()
+        runChecks(run,checksWithFrequency(HealthCheckRunFrequency.LOW))
+        runChecks(run,checksWithFrequency(HealthCheckRunFrequency.MEDIUM))
+        runChecks(run,checksWithFrequency(HealthCheckRunFrequency.HIGH))
+        calculateHealthCheckResult(run)
+        saveHealthCheckRun(run)
 
-        saveResults(healthCheckResults)
+        run
+    }
+
+    @Override
+    HealthCheckRun runHealthChecksWithFrequency(int frequencyInt) {
+        def frequency = HealthCheckRunFrequency.fromId(frequencyInt)
+
+        def run = createHealthCheckRun()
+        runChecks(run,checksWithFrequency(frequency))
+
+        saveHealthCheckRun(run)
+
+        run
     }
 
     @Override
@@ -51,41 +69,81 @@ class HealthCheckServiceBean implements HealthCheckService {
         dataManager.load(loadContext)
     }
 
-    HealthCheckRun saveResults(Map<String, HealthCheck.Result> healthCheckResults) {
+    HealthCheckRun runChecks(HealthCheckRun run, Map<String, HealthCheck> healthChecks) {
 
-        def run = metadata.create(HealthCheckRun)
-
-        CommitContext commitContext = new CommitContext()
         run.executedAt = timeSource.currentTimestamp()
         List<HealthCheckRunResult> results = []
 
-
-        commitContext.addInstanceToCommit(run)
-
-        healthCheckResults.each {
-            def runResult = metadata.create(HealthCheckRunResult)
-
-            runResult.name = it.key
-            def resultType
-            if (it.value.healthy) {
-                resultType = HealthCheckResultType.SUCCESS
+        healthChecks.each { String name, HealthCheck healthCheck ->
+            HealthCheckRunResult result
+            try {
+                result = healthCheck.check()
             }
-            else {
-                resultType = HealthCheckResultType.ERROR
+            catch (Exception e) {
+                result = createExceptionalRunResult(e, healthCheck)
             }
-
-            runResult.result = resultType
-            runResult.healthCheckRun = run
-            results << runResult
-
-            commitContext.addInstanceToCommit(runResult)
+            result.healthCheckRun = run
+            results << result
         }
 
-        run.result = results.every {it.result == HealthCheckResultType.SUCCESS} ? HealthCheckResultType.SUCCESS : HealthCheckResultType.ERROR
 
-        run.results = results
+        if (!run.results) {
+         run.results = []
+        }
+        run.results.addAll(results)
+        run
+    }
+
+    private void calculateHealthCheckResult(HealthCheckRun run) {
+        run.result = getRunResultTypeFromResults(run.results)
+    }
+
+    private Map<String, HealthCheck> checksWithFrequency(HealthCheckRunFrequency frequency) {
+        AppBeans.getAll(HealthCheck).findAll { it.value.frequency == frequency }
+    }
+
+    private HealthCheckRun createHealthCheckRun() {
+        metadata.create(HealthCheckRun)
+    }
+
+    private HealthCheckRunResult createExceptionalRunResult(Exception e, HealthCheck healthCheck) {
+        HealthCheckRunResult result = metadata.create(HealthCheckRunResult)
+        result.result = HealthCheckResultType.ERROR
+        result.message = e.message
+        result.category = healthCheck.category
+        result.name = healthCheck.name
+        result.detailedMessage = createDetailedMessageFromException(e)
+        result
+    }
+
+    private String createDetailedMessageFromException(Exception e) {
+        def result = null
+        def stacktraceMessage = ExceptionUtils.getStackTrace(e)
+        if (stacktraceMessage.size() > 4000) {
+            result = stacktraceMessage.substring(0, 3999)
+        } else {
+            result = stacktraceMessage
+        }
+
+        result
+    }
+    private HealthCheckResultType getRunResultTypeFromResults(Collection<HealthCheckRunResult> results) {
+        def everyResultSuccess = results.every { it.result == HealthCheckResultType.SUCCESS }
+
+        everyResultSuccess ? HealthCheckResultType.SUCCESS : HealthCheckResultType.ERROR
+    }
+
+    void saveHealthCheckRun(HealthCheckRun run) {
+
+        CommitContext commitContext = new CommitContext()
+        commitContext.addInstanceToCommit(run)
+
+        run.results.each {
+            commitContext.addInstanceToCommit(it)
+        }
+
         dataManager.commit(commitContext)
 
-        run
+
     }
 }

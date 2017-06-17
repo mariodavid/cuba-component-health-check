@@ -10,8 +10,9 @@ create table DDCHC_HEALTH_CHECK_RUN (
     DELETED_BY varchar(50),
     --
     EXECUTED_AT timestamp not null,
-    SUMMARY varchar(4000),
     RESULT_ varchar(50) not null,
+    SUMMARY varchar(255),
+    DETAILED_MESSAGE varchar(400),
     --
     primary key (ID)
 )^
@@ -29,7 +30,9 @@ create table DDCHC_HEALTH_CHECK_RUN_RESULT (
     --
     NAME varchar(255) not null,
     RESULT_ varchar(50) not null,
-    SUMMARY varchar(255),
+    CATEGORY varchar(255),
+    MESSAGE varchar(255),
+    DETAILED_MESSAGE varchar(4000),
     HEALTH_CHECK_RUN_ID varchar(36) not null,
     --
     primary key (ID)

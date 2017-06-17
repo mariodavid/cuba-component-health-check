@@ -36,7 +36,7 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
                 healthCheckStatusBtn.visible = security.isEntityOpPermitted(HealthCheckRun, EntityOp.READ)
                 healthCheckStatusBtn.icon = healthCheckRun.result.icon
                 if (healthCheckRun.result == HealthCheckResultType.ERROR) {
-                    healthCheckStatusBtn.styleName = 'warning'
+                    healthCheckStatusBtn.styleName = 'danger'
                 }
                 else {
                     healthCheckStatusBtn.styleName = 'friendly'

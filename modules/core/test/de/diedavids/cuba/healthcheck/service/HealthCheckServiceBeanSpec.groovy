@@ -3,9 +3,7 @@ package de.diedavids.cuba.healthcheck.service
 import com.codahale.metrics.health.HealthCheckRegistry
 import com.haulmont.cuba.core.global.Resources
 import de.diedavids.cuba.healthcheck.TestHealthCheckConfiguration
-import de.diedavids.cuba.healthcheck.core.HealthCheckConfiguration
 import org.springframework.core.io.ByteArrayResource
-import org.springframework.core.io.Resource
 import spock.lang.Specification
 
 class HealthCheckServiceBeanSpec extends Specification {
@@ -30,7 +28,7 @@ class HealthCheckServiceBeanSpec extends Specification {
                 )
         )
         when:
-        sut.runHealthChecks()
+        sut.runHealthChecksWithFrequency()
         then:
         false
     }

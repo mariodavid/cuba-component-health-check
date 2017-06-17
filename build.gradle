@@ -16,6 +16,7 @@ buildscript {
 }
 
 def globalModule = project(':health-check-global')
+def webThemesModule= project(':health-check-web-themes')
 def coreModule = project(':health-check-core')
 def guiModule = project(':health-check-gui')
 def webModule = project(':health-check-web')
@@ -95,6 +96,27 @@ configure(globalModule) {
 
     
 }
+configure(webThemesModule) {
+    apply(plugin: 'java')
+    apply(plugin: 'maven')
+    apply(plugin: 'cuba')
+
+    appModuleType = 'web-themes'
+
+    buildDir = file('../build/scss-themes')
+
+    sourceSets {
+        main {
+            java {
+                srcDir '.'
+            }
+            resources {
+                srcDir '.'
+            }
+        }
+    }
+}
+
 
 configure(coreModule) {
 
@@ -207,6 +229,9 @@ configure(webModule) {
         appName = 'health-check'
         appJars('health-check-global', 'health-check-gui', 'health-check-web')
     }
+    task buildScssThemes(type: CubaWebScssThemeCreation)
+    task deployThemes(type: CubaDeployThemeTask, dependsOn: buildScssThemes)
+    assemble.dependsOn buildScssThemes
 }
 
 

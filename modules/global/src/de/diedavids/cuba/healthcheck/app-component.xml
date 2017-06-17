@@ -41,6 +41,8 @@
                   configuration="webcontent"
                   ext="zip"
                   name="health-check-web"/>
+        <artifact configuration="themes"
+                  name="web-themes"/>
         <property name="cuba.springContextConfig"
                   value="+de/diedavids/cuba/healthcheck/web-spring.xml"/>
         <property name="cuba.dispatcherSpringContextConfig"
@@ -53,5 +55,8 @@
                   value="+de/diedavids/cuba/healthcheck/web-permissions.xml"/>
         <property name="cuba.mainMessagePack"
                   value="+de.diedavids.cuba.healthcheck.web"/>
+    </module>
+    <module name="web-themes">
+        <artifact name="health-check-web-themes"/>
     </module>
 </app-component>
