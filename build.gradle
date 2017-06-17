@@ -130,9 +130,6 @@ configure(coreModule) {
         provided(servletApi)
         jdbc(hsql)
         testRuntime(hsql)
-        compile('io.dropwizard.metrics:metrics-core:3.1.2')
-//        compile('io.dropwizard.metrics:metrics-healthchecks:3.0.2')
-        compile('com.ryantenney.metrics:metrics-spring:3.1.3')
 
     }
 
