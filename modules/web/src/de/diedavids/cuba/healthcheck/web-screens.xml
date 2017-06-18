@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <screen-config xmlns="http://schemas.haulmont.com/cuba/screens.xsd">
     <include file="de/diedavids/cuba/healthcheck/screens.xml"/>
-    <screen id="ddchc$HealthCheckRun.browse"
-            template="de/diedavids/cuba/healthcheck/web/healthcheckrun/health-check-run-browse.xml"/>
-    <screen id="ddchc$HealthCheckRun.edit"
-            template="de/diedavids/cuba/healthcheck/web/healthcheckrun/health-check-run-edit.xml"/>
+    <screen id="ddchc$HealthCheckReport.browse"
+            template="de/diedavids/cuba/healthcheck/web/healthcheckreport/health-check-report-browse.xml"/>
+    <screen id="ddchc$HealthCheckReport.edit"
+            template="de/diedavids/cuba/healthcheck/web/healthcheckreport/health-check-report-edit.xml"/>
     <screen id="mainWindow"
             template="de/diedavids/cuba/healthcheck/web/screens/mainwindow-with-health-check-indicator.xml"/>
 </screen-config>

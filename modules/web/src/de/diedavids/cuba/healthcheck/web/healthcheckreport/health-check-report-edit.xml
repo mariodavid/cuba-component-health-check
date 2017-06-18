@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://editorCaption"
-        class="de.diedavids.cuba.healthcheck.web.healthcheckrun.HealthCheckRunEdit"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckreport.HealthCheckReporEdit"
         datasource="healthCheckRunDs"
         focusComponent="fieldGroup"
-        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckrun">
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckreport">
     <dsContext>
         <datasource id="healthCheckRunDs"
-                    class="de.diedavids.cuba.healthcheck.entity.HealthCheckRun"
-                    view="healthCheckRun-view">
-            <groupDatasource id="resultsDs"
-                             property="results"/>
+                    class="de.diedavids.cuba.healthcheck.entity.HealthCheckReport"
+                    view="healthCheckReport-view">
+            <groupDatasource id="checksDs"
+                             property="checks"/>
         </datasource>
     </dsContext>
     <actions>
         <action id="closeAction"
                 invoke="close"/>
+        <action id="historyAction"
+                invoke="history"/>
     </actions>
     <dialogMode height="600"
                 width="800"/>
@@ -37,10 +39,10 @@
             </column>
         </fieldGroup>
         <tabSheet id="tabSheet">
-            <tab id="resultsTab"
-                 caption="msg://results"
+            <tab id="checksTab"
+                 caption="msg://checks"
                  margin="true">
-                <groupTable id="resultsTable"
+                <groupTable id="checksTable"
                             height="100%"
                             width="100%">
                     <columns>
@@ -53,7 +55,7 @@
                         <column id="detailedMessage"
                                 maxTextLength="30"/>
                     </columns>
-                    <rows datasource="resultsDs"/>
+                    <rows datasource="checksDs"/>
                 </groupTable>
             </tab>
             <tab id="detailedMessageTab"
@@ -67,9 +69,15 @@
                           width="100%"/>
             </tab>
         </tabSheet>
-        <button id="closeBtn"
-                action="closeAction"
-                caption="mainMsg://actions.Close"
-                icon="icons/ok.png"/>
+        <buttonsPanel>
+            <button id="closeBtn"
+                    action="closeAction"
+                    caption="mainMsg://actions.Close"
+                    icon="icons/ok.png"/>
+            <button id="historyBtn"
+                    action="historyAction"
+                    caption="msg://history"
+                    icon="font-icon:HISTORY"/>
+        </buttonsPanel>
     </layout>
 </window>

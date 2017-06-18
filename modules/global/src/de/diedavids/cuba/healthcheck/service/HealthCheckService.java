@@ -1,12 +1,12 @@
 package de.diedavids.cuba.healthcheck.service;
 
 
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRun;
+import de.diedavids.cuba.healthcheck.entity.HealthCheckReport;
 
 public interface HealthCheckService {
     String NAME = "ddchc_HealthCheckService";
 
-    HealthCheckRun runHealthChecks();
+    HealthCheckReport runHealthChecks();
 
-    HealthCheckRun getLatestHealthCheck();
+    HealthCheckReport getLatestHealthCheckReport();
 }

@@ -4,9 +4,9 @@ import com.haulmont.cuba.core.global.*
 import de.diedavids.cuba.healthcheck.HealthCheck
 import de.diedavids.cuba.healthcheck.core.HealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRun
+import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
 
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult
+import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
 import org.apache.commons.lang.exception.ExceptionUtils
 import org.springframework.stereotype.Service
 
@@ -29,7 +29,7 @@ class HealthCheckServiceBean implements HealthCheckService {
     TimeSource timeSource
 
     @Override
-    HealthCheckRun runHealthChecks() {
+    HealthCheckReport runHealthChecks() {
 
         List<HealthCheckConfiguration.HealthCheckInfo> healthCheckInfos = healthCheckConfiguration.healthChecks
 
@@ -44,56 +44,56 @@ class HealthCheckServiceBean implements HealthCheckService {
 
 
     @Override
-    HealthCheckRun getLatestHealthCheck() {
+    HealthCheckReport getLatestHealthCheckReport() {
 
-        LoadContext loadContext = LoadContext.create(HealthCheckRun)
+        LoadContext loadContext = LoadContext.create(HealthCheckReport)
                 .setQuery(
-                LoadContext.createQuery('select e from ddchc$HealthCheckRun e order by e.executedAt desc').setMaxResults(1)
+                LoadContext.createQuery('select e from ddchc$HealthCheckReport e order by e.executedAt desc').setMaxResults(1)
 
         )
 
         dataManager.load(loadContext)
     }
 
-    HealthCheckRun runChecks(HealthCheckRun run, Map<String, HealthCheck> healthChecks) {
+    HealthCheckReport runChecks(HealthCheckReport run, Map<String, HealthCheck> healthChecks) {
 
         run.executedAt = timeSource.currentTimestamp()
-        List<HealthCheckRunResult> results = []
+        List<HealthCheckReportDetail> results = []
 
         healthChecks.each { String name, HealthCheck healthCheck ->
-            HealthCheckRunResult result
+            HealthCheckReportDetail result
             try {
                 result = healthCheck.check()
             }
             catch (Exception e) {
                 result = createExceptionalRunResult(e, healthCheck)
             }
-            result.healthCheckRun = run
+            result.healthCheckReport = run
             results << result
         }
 
 
-        if (!run.results) {
-         run.results = []
+        if (!run.checks) {
+         run.checks = []
         }
-        run.results.addAll(results)
+        run.checks.addAll(results)
         run
     }
 
-    private void calculateHealthCheckResult(HealthCheckRun run) {
-        run.result = getRunResultTypeFromResults(run.results)
+    private void calculateHealthCheckResult(HealthCheckReport run) {
+        run.result = getRunResultTypeFromResults(run.checks)
     }
 
     private Map<String, HealthCheck> getProgrammaticallyDefinedChecks() {
         AppBeans.getAll(HealthCheck)
     }
 
-    private HealthCheckRun createHealthCheckRun() {
-        metadata.create(HealthCheckRun)
+    private HealthCheckReport createHealthCheckRun() {
+        metadata.create(HealthCheckReport)
     }
 
-    private HealthCheckRunResult createExceptionalRunResult(Exception e, HealthCheck healthCheck) {
-        HealthCheckRunResult result = metadata.create(HealthCheckRunResult)
+    private HealthCheckReportDetail createExceptionalRunResult(Exception e, HealthCheck healthCheck) {
+        HealthCheckReportDetail result = metadata.create(HealthCheckReportDetail)
         result.result = HealthCheckResultType.ERROR
         result.message = e.message
         result.category = healthCheck.category
@@ -113,18 +113,18 @@ class HealthCheckServiceBean implements HealthCheckService {
 
         result
     }
-    private HealthCheckResultType getRunResultTypeFromResults(Collection<HealthCheckRunResult> results) {
-        def everyResultSuccess = results.every { it.result == HealthCheckResultType.SUCCESS }
+    private HealthCheckResultType getRunResultTypeFromResults(Collection<HealthCheckReportDetail> checks) {
+        def everyResultSuccess = checks.every { it.result == HealthCheckResultType.SUCCESS }
 
         everyResultSuccess ? HealthCheckResultType.SUCCESS : HealthCheckResultType.ERROR
     }
 
-    void saveHealthCheckRun(HealthCheckRun run) {
+    void saveHealthCheckRun(HealthCheckReport run) {
 
         CommitContext commitContext = new CommitContext()
         commitContext.addInstanceToCommit(run)
 
-        run.results.each {
+        run.checks.each {
             commitContext.addInstanceToCommit(it)
         }
 

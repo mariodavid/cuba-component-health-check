@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
-    <view class="de.diedavids.cuba.healthcheck.entity.HealthCheckRun"
+    <view class="de.diedavids.cuba.healthcheck.entity.HealthCheckReport"
           extends="_local"
-          name="healthCheckRun-view">
-        <property name="results"
+          name="healthCheckReport-view">
+        <property name="checks"
                   view="_local"/>
     </view>
 </views>

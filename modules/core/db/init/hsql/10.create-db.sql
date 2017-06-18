@@ -1,5 +1,5 @@
--- begin DDCHC_HEALTH_CHECK_RUN
-create table DDCHC_HEALTH_CHECK_RUN (
+-- begin DDCHC_HEALTH_CHECK_REPORT
+create table DDCHC_HEALTH_CHECK_REPORT (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -16,9 +16,9 @@ create table DDCHC_HEALTH_CHECK_RUN (
     --
     primary key (ID)
 )^
--- end DDCHC_HEALTH_CHECK_RUN
--- begin DDCHC_HEALTH_CHECK_RUN_RESULT
-create table DDCHC_HEALTH_CHECK_RUN_RESULT (
+-- end DDCHC_HEALTH_CHECK_REPORT
+-- begin DDCHC_HEALTH_CHECK_REPORT_DETAIL
+create table DDCHC_HEALTH_CHECK_REPORT_DETAIL (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -37,4 +37,4 @@ create table DDCHC_HEALTH_CHECK_RUN_RESULT (
     --
     primary key (ID)
 )^
--- end DDCHC_HEALTH_CHECK_RUN_RESULT
+-- end DDCHC_HEALTH_CHECK_REPORT_DETAIL

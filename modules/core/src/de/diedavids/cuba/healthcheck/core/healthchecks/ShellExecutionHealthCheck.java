@@ -1,14 +1,8 @@
 package de.diedavids.cuba.healthcheck.core.healthchecks;
 
-import com.haulmont.cuba.core.entity.Entity;
-import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.core.global.LoadContext;
-import de.diedavids.cuba.healthcheck.HealthCheckCategories;
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult;
+import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.inject.Inject;
 
 /**
  * Abstract superclass for defining a check that executes a shell command and checks if the exit code of
@@ -23,7 +17,7 @@ public abstract class ShellExecutionHealthCheck extends AbstractHealthCheck {
     private Logger log = LoggerFactory.getLogger(ShellExecutionHealthCheck.class);
 
     @Override
-    public HealthCheckRunResult check() {
+    public HealthCheckReportDetail check() {
         try {
 
             Process p = Runtime.getRuntime().exec(getShellCommand());
@@ -56,7 +50,7 @@ public abstract class ShellExecutionHealthCheck extends AbstractHealthCheck {
      * @param shellCommandProcess the process instance
      * @return the corresponding health check result created in the success case
      */
-    protected abstract HealthCheckRunResult handleSuccessfulExecution(Process shellCommandProcess);
+    protected abstract HealthCheckReportDetail handleSuccessfulExecution(Process shellCommandProcess);
 
 
     /**
@@ -64,6 +58,6 @@ public abstract class ShellExecutionHealthCheck extends AbstractHealthCheck {
      * @param shellCommandProcess the process instance
      * @return the corresponding health check result created in the error case
      */
-    protected abstract HealthCheckRunResult handleErrorExecution(Process shellCommandProcess);
+    protected abstract HealthCheckReportDetail handleErrorExecution(Process shellCommandProcess);
 
 }

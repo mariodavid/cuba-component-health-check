@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://browseCaption"
-        class="de.diedavids.cuba.healthcheck.web.healthcheckrun.HealthCheckRunBrowse"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckreport.HealthCheckReportBrowse"
         focusComponent="healthCheckRunsTable"
         lookupComponent="healthCheckRunsTable"
-        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckrun">
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckreport">
     <dsContext>
         <groupDatasource id="healthCheckRunsDs"
-                         class="de.diedavids.cuba.healthcheck.entity.HealthCheckRun"
-                         view="healthCheckRun-view">
+                         class="de.diedavids.cuba.healthcheck.entity.HealthCheckReport"
+                         view="healthCheckReport-view">
             <query>
-                <![CDATA[select e from ddchc$HealthCheckRun e order by e.executedAt desc]]>
+                <![CDATA[select e from ddchc$HealthCheckReport e order by e.executedAt desc]]>
             </query>
         </groupDatasource>
     </dsContext>

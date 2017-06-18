@@ -1,1 +1,1 @@
-alter table DDCHC_HEALTH_CHECK_RUN_RESULT add column CATEGORY varchar(255) ;
+alter table DDCHC_HEALTH_CHECK_REPORT_DETAIL add column CATEGORY varchar(255) ;

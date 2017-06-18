@@ -14,9 +14,9 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "DDCHC_HEALTH_CHECK_RUN")
-@Entity(name = "ddchc$HealthCheckRun")
-public class HealthCheckRun extends StandardEntity {
+@Table(name = "DDCHC_HEALTH_CHECK_REPORT")
+@Entity(name = "ddchc$HealthCheckReport")
+public class HealthCheckReport extends StandardEntity {
     private static final long serialVersionUID = 8485311513349157688L;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,8 +34,17 @@ public class HealthCheckRun extends StandardEntity {
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
-    @OneToMany(mappedBy = "healthCheckRun")
-    protected List<HealthCheckRunResult> results;
+    @OneToMany(mappedBy = "healthCheckReport")
+    protected List<HealthCheckReportDetail> checks;
+
+    public void setChecks(List<HealthCheckReportDetail> checks) {
+        this.checks = checks;
+    }
+
+    public List<HealthCheckReportDetail> getChecks() {
+        return checks;
+    }
+
 
     public void setSummary(String summary) {
         this.summary = summary;
@@ -64,14 +73,6 @@ public class HealthCheckRun extends StandardEntity {
         return executedAt;
     }
 
-
-    public void setResults(List<HealthCheckRunResult> results) {
-        this.results = results;
-    }
-
-    public List<HealthCheckRunResult> getResults() {
-        return results;
-    }
 
 
     public void setResult(HealthCheckResultType result) {

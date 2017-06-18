@@ -8,7 +8,7 @@ import com.haulmont.cuba.gui.components.actions.BaseAction
 import com.haulmont.cuba.security.entity.EntityOp
 import com.haulmont.cuba.web.app.mainwindow.AppMainWindow
 import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRun
+import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
 import de.diedavids.cuba.healthcheck.service.HealthCheckService
 
 import javax.inject.Inject
@@ -28,14 +28,14 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
     void ready() {
         super.ready()
 
-        if (security.isEntityOpPermitted(HealthCheckRun, EntityOp.READ)) {
+        if (security.isEntityOpPermitted(HealthCheckReport, EntityOp.READ)) {
 
-            HealthCheckRun healthCheckRun = healthCheckService.getLatestHealthCheck()
+            HealthCheckReport healthCheckReport = healthCheckService.getLatestHealthCheckReport()
 
-            if (healthCheckRun) {
-                healthCheckStatusBtn.visible = security.isEntityOpPermitted(HealthCheckRun, EntityOp.READ)
-                healthCheckStatusBtn.icon = healthCheckRun.result.icon
-                if (healthCheckRun.result == HealthCheckResultType.ERROR) {
+            if (healthCheckReport) {
+                healthCheckStatusBtn.visible = security.isEntityOpPermitted(HealthCheckReport, EntityOp.READ)
+                healthCheckStatusBtn.icon = healthCheckReport.result.icon
+                if (healthCheckReport.result == HealthCheckResultType.ERROR) {
                     healthCheckStatusBtn.styleName = 'danger'
                 }
                 else {
@@ -44,7 +44,7 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
                 healthCheckStatusBtn.action = new BaseAction('showHealthCheck') {
                     @Override
                     void actionPerform(Component component) {
-                        openEditor(healthCheckRun, WindowManager.OpenType.NEW_TAB)
+                        openEditor(healthCheckReport, WindowManager.OpenType.NEW_TAB, [showHistory: true])
                     }
                 }
             }

@@ -8,9 +8,10 @@ create table DDCHC_HEALTH_CHECK_REPORT (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    TIMESTAMP_ date not null,
-    SUMMARY varchar(4000),
+    EXECUTED_AT timestamp not null,
     RESULT_ varchar(50) not null,
+    SUMMARY varchar(255),
+    DETAILED_MESSAGE varchar(400),
     --
     primary key (ID)
 );

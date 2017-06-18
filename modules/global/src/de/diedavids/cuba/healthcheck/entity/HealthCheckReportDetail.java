@@ -10,9 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @NamePattern("%s (%s)|name,result")
-@Table(name = "DDCHC_HEALTH_CHECK_RUN_RESULT")
-@Entity(name = "ddchc$HealthCheckRunResult")
-public class HealthCheckRunResult extends StandardEntity {
+@Table(name = "DDCHC_HEALTH_CHECK_REPORT_DETAIL")
+@Entity(name = "ddchc$HealthCheckReportDetail")
+public class HealthCheckReportDetail extends StandardEntity {
     private static final long serialVersionUID = 4988447995454061628L;
 
     @Column(name = "NAME", nullable = false)
@@ -32,7 +32,7 @@ public class HealthCheckRunResult extends StandardEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "HEALTH_CHECK_RUN_ID")
-    protected HealthCheckRun healthCheckRun;
+    protected HealthCheckReport healthCheckReport;
 
     public void setDetailedMessage(String detailedMessage) {
         this.detailedMessage = detailedMessage;
@@ -61,12 +61,12 @@ public class HealthCheckRunResult extends StandardEntity {
     }
 
 
-    public void setHealthCheckRun(HealthCheckRun healthCheckRun) {
-        this.healthCheckRun = healthCheckRun;
+    public void setHealthCheckReport(HealthCheckReport healthCheckReport) {
+        this.healthCheckReport = healthCheckReport;
     }
 
-    public HealthCheckRun getHealthCheckRun() {
-        return healthCheckRun;
+    public HealthCheckReport getHealthCheckReport() {
+        return healthCheckReport;
     }
 
 

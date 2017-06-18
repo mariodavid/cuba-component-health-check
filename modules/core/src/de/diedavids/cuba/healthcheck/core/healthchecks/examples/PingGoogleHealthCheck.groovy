@@ -3,7 +3,7 @@ package de.diedavids.cuba.healthcheck.core.healthchecks.examples
 import de.diedavids.cuba.healthcheck.HealthCheckCategories
 import de.diedavids.cuba.healthcheck.core.healthchecks.ShellExecutionHealthCheck
 
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult
+import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
 import org.springframework.stereotype.Component
 
 @Component
@@ -21,12 +21,12 @@ class PingGoogleHealthCheck extends ShellExecutionHealthCheck {
     }
 
     @Override
-    protected HealthCheckRunResult handleErrorExecution(Process shellCommandProcess) {
+    protected HealthCheckReportDetail handleErrorExecution(Process shellCommandProcess) {
         error("Couldn't ping www.google.com")
     }
 
     @Override
-    protected HealthCheckRunResult handleSuccessfulExecution(Process shellCommandProcess) {
+    protected HealthCheckReportDetail handleSuccessfulExecution(Process shellCommandProcess) {
         success("ping google successful")
     }
 }

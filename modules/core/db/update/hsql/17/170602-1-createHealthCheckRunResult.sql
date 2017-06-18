@@ -1,4 +1,4 @@
-create table DDCHC_HEALTH_CHECK_RUN_RESULT (
+create table DDCHC_HEALTH_CHECK_REPORT_DETAIL (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,

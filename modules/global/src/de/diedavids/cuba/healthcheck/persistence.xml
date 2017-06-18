@@ -3,7 +3,7 @@
              version="2.0">
     <persistence-unit name="cuba-component-health-check"
                       transaction-type="RESOURCE_LOCAL">
-        <class>de.diedavids.cuba.healthcheck.entity.HealthCheckRun</class>
-        <class>de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult</class>
+        <class>de.diedavids.cuba.healthcheck.entity.HealthCheckReport</class>
+        <class>de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail</class>
     </persistence-unit>
 </persistence>
