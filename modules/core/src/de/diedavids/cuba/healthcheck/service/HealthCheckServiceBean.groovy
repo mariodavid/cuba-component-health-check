@@ -3,10 +3,9 @@ package de.diedavids.cuba.healthcheck.service
 import com.haulmont.cuba.core.global.*
 import de.diedavids.cuba.healthcheck.HealthCheck
 import de.diedavids.cuba.healthcheck.core.HealthCheckConfiguration
-import de.diedavids.cuba.healthcheck.core.healthchecks.AbstractHealthCheck
 import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRun
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRunFrequency
+
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult
 import org.apache.commons.lang.exception.ExceptionUtils
 import org.springframework.stereotype.Service
@@ -36,26 +35,13 @@ class HealthCheckServiceBean implements HealthCheckService {
 
 
         def run = createHealthCheckRun()
-        runChecks(run,checksWithFrequency(HealthCheckRunFrequency.LOW))
-        runChecks(run,checksWithFrequency(HealthCheckRunFrequency.MEDIUM))
-        runChecks(run,checksWithFrequency(HealthCheckRunFrequency.HIGH))
+        runChecks(run,getProgrammaticallyDefinedChecks())
         calculateHealthCheckResult(run)
         saveHealthCheckRun(run)
 
         run
     }
 
-    @Override
-    HealthCheckRun runHealthChecksWithFrequency(int frequencyInt) {
-        def frequency = HealthCheckRunFrequency.fromId(frequencyInt)
-
-        def run = createHealthCheckRun()
-        runChecks(run,checksWithFrequency(frequency))
-
-        saveHealthCheckRun(run)
-
-        run
-    }
 
     @Override
     HealthCheckRun getLatestHealthCheck() {
@@ -98,8 +84,8 @@ class HealthCheckServiceBean implements HealthCheckService {
         run.result = getRunResultTypeFromResults(run.results)
     }
 
-    private Map<String, HealthCheck> checksWithFrequency(HealthCheckRunFrequency frequency) {
-        AppBeans.getAll(HealthCheck).findAll { it.value.frequency == frequency }
+    private Map<String, HealthCheck> getProgrammaticallyDefinedChecks() {
+        AppBeans.getAll(HealthCheck)
     }
 
     private HealthCheckRun createHealthCheckRun() {

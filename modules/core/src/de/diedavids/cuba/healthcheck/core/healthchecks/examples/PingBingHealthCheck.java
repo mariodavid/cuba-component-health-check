@@ -2,7 +2,6 @@ package de.diedavids.cuba.healthcheck.core.healthchecks.examples;
 
 import de.diedavids.cuba.healthcheck.HealthCheckCategories;
 import de.diedavids.cuba.healthcheck.core.healthchecks.ShellExecutionHealthCheck;
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRunFrequency;
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +10,6 @@ public class PingBingHealthCheck extends ShellExecutionHealthCheck {
     @Override
     public String getCategory() {
         return HealthCheckCategories.COMMUNICATION;
-    }
-
-    @Override
-    public HealthCheckRunFrequency getFrequency() {
-        return HealthCheckRunFrequency.HIGH;
     }
 
     @Override

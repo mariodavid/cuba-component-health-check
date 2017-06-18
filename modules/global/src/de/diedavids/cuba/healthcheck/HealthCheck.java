@@ -1,6 +1,5 @@
 package de.diedavids.cuba.healthcheck;
 
-import de.diedavids.cuba.healthcheck.entity.HealthCheckRunFrequency;
 import de.diedavids.cuba.healthcheck.entity.HealthCheckRunResult;
 
 public interface HealthCheck {
@@ -24,9 +23,4 @@ public interface HealthCheck {
      */
     public String getName();
 
-    /**
-     * defines the frequency in that the health check should be executed periodically
-     * @return the frequency
-     */
-    public HealthCheckRunFrequency getFrequency();
 }
