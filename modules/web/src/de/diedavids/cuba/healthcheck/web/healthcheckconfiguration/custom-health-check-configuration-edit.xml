@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
-        caption="msg://editorCaption"
-        class="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration.HealthCheckConfigurationEdit"
+        caption="msg://customEditorCaption"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration.CustomHealthCheckConfigurationEdit"
         datasource="healthCheckConfigurationDs"
         focusComponent="fieldGroup"
         messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration">
@@ -17,27 +17,24 @@
         <fieldGroup id="fieldGroup"
                     datasource="healthCheckConfigurationDs">
             <column width="250px">
-                <field property="healthCheckClass" custom="true"/>
-            </column>
-            <column width="250px">
                 <field property="active"/>
             </column>
         </fieldGroup>
         <tabSheet width="100%" id="descriptionTabSheet">
-            <tab id="descriptionTab" caption="msg://description" margin="true">
-                <textArea id="descriptionMessageTextArea"
-                          width="100%"
-                          height="100%"
-                          datasource="healthCheckConfigurationDs"
-                          property="description" />
-
-            </tab>
             <tab id="scriptTab" caption="msg://script" margin="true">
                 <textArea id="scriptTextArea"
                           width="100%"
                           height="100%"
                           datasource="healthCheckConfigurationDs"
-                          property="script" />
+                          property="script"/>
+
+            </tab>
+            <tab id="descriptionTab" caption="msg://description" margin="true">
+                <textArea id="descriptionMessageTextArea"
+                          width="100%"
+                          height="100%"
+                          datasource="healthCheckConfigurationDs"
+                          property="description"/>
 
             </tab>
             <tab id="solutionInformationTab" caption="msg://solutionInformation" margin="true">
@@ -45,7 +42,7 @@
                           width="100%"
                           height="100%"
                           datasource="healthCheckConfigurationDs"
-                          property="solutionInformation" />
+                          property="solutionInformation"/>
 
             </tab>
         </tabSheet>

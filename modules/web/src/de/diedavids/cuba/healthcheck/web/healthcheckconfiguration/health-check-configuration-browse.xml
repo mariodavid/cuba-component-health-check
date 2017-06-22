@@ -31,10 +31,11 @@
                 <action id="remove"/>
             </actions>
             <columns>
+                <column id="healthCheckClass">
+                    <formatter class="de.diedavids.cuba.healthcheck.web.HealthCheckLocalNameFormatter" />
+                </column>
+                <column id="type"/>
                 <column id="active"/>
-                <column id="healthCheckClass"/>
-                <column id="description"/>
-                <column id="solutionInformation"/>
             </columns>
             <rows datasource="healthCheckConfigurationsDs"/>
             <rowsCount/>

@@ -48,11 +48,14 @@ create table DDCHC_HEALTH_CHECK_CONFIGURATION (
     UPDATED_BY varchar(50),
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
+    DTYPE varchar(31),
     --
+    TYPE_ varchar(50) not null,
     ACTIVE boolean,
-    HEALTH_CHECK_CLASS varchar(4000) not null,
     DESCRIPTION varchar(4000),
     SOLUTION_INFORMATION varchar(4000),
+    HEALTH_CHECK_CLASS varchar(255),
+    SCRIPT longvarchar,
     --
     primary key (ID)
 )^

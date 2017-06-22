@@ -6,6 +6,7 @@ import com.haulmont.cuba.gui.components.LookupField
 import com.haulmont.cuba.gui.data.Datasource
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory
 import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration
+import de.diedavids.cuba.healthcheck.entity.HealthCheckType
 import de.diedavids.cuba.healthcheck.service.HealthCheckService
 
 import javax.inject.Inject
@@ -29,6 +30,14 @@ class HealthCheckConfigurationEdit extends AbstractEditor<HealthCheckConfigurati
         super.init(params)
 
         initHealthCheckClassLookupField()
+    }
+
+    @Override
+    protected void initNewItem(HealthCheckConfiguration item) {
+        item.type = HealthCheckType.CUSTOM
+        item.active = true
+
+        fieldGroup.getField('healthCheckClass').visible = false
     }
 
     protected void initHealthCheckClassLookupField() {

@@ -1,0 +1,1 @@
+drop table DDCHC_CUSTOM_HEALTH_CHECK_CONFIGURATION cascade ;
