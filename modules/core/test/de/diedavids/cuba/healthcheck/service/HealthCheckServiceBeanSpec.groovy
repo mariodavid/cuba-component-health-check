@@ -1,6 +1,5 @@
 package de.diedavids.cuba.healthcheck.service
 
-import com.codahale.metrics.health.HealthCheckRegistry
 import com.haulmont.cuba.core.global.Resources
 import de.diedavids.cuba.healthcheck.TestHealthCheckConfiguration
 import org.springframework.core.io.ByteArrayResource
@@ -21,14 +20,13 @@ class HealthCheckServiceBeanSpec extends Specification {
 
         given:
         def sut = new HealthCheckServiceBean(
-                healthCheckRegistry: Mock(HealthCheckRegistry),
                 healthCheckConfiguration: new TestHealthCheckConfiguration(
                         resources: resources,
                         mockedAppContextProperty: '/de/diedavids/cuba/healtchecks.xml'
                 )
         )
         when:
-        sut.runHealthChecksWithFrequency()
+        sut.runHealthChecks()
         then:
         false
     }
