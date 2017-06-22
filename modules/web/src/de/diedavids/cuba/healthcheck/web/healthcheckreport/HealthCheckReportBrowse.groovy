@@ -53,11 +53,5 @@ class HealthCheckReportBrowse extends AbstractLookup {
         })
     }
 
-    void runHealthChecks() {
-
-        healthCheckService.runHealthChecks()
-        healthCheckRunsDs.refresh()
-        runHealthChecksBtn.enabled = true
-    }
 
 }

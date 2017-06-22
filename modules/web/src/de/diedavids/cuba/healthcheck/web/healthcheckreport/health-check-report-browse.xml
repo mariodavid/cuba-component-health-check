@@ -28,9 +28,6 @@
             <actions>
                 <action id="edit"/>
                 <action id="remove"/>
-                <action id="runHealthChecksAction"
-                        caption="msg://runHealthChecks"
-                        invoke="runHealthChecks"/>
             </actions>
             <columns>
                 <column id="result"/>
@@ -41,10 +38,6 @@
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="runHealthChecksBtn"
-                        action="healthCheckRunsTable.runHealthChecksAction"
-                        disableOnClick="true"
-                        icon="font-icon:PLAY_CIRCLE_O"/>
                 <button id="editBtn"
                         action="healthCheckRunsTable.edit"/>
                 <button id="removeBtn"

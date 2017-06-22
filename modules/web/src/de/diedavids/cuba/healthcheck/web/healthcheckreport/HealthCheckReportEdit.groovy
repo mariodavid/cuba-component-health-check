@@ -12,11 +12,12 @@ import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
 import de.diedavids.cuba.healthcheck.service.HealthCheckService
+import de.diedavids.cuba.healthcheck.web.screens.LatestHealthCheckOpener
 
 import javax.annotation.Nullable
 import javax.inject.Inject
 
-class HealthCheckReporEdit extends AbstractEditor<HealthCheckReport> {
+class HealthCheckReportEdit extends AbstractEditor<HealthCheckReport> {
 
     @Inject
     Table<HealthCheckReportDetail> checksTable
@@ -73,6 +74,13 @@ class HealthCheckReporEdit extends AbstractEditor<HealthCheckReport> {
     }
 
     void history() {
-        openWindow('ddchc$HealthCheckReport.browse', WindowManager.OpenType.DIALOG)
+        openWindow('ddchc$HealthCheckReport.browse', WindowManager.OpenType.NEW_TAB)
+    }
+
+
+    void runHealthChecks() {
+
+        healthCheckService.runHealthChecks()
+        closeAndRun(CLOSE_ACTION_ID, new LatestHealthCheckOpener())
     }
 }

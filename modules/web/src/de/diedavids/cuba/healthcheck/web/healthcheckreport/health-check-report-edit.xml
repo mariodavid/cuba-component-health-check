@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
         caption="msg://editorCaption"
-        class="de.diedavids.cuba.healthcheck.web.healthcheckreport.HealthCheckReporEdit"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckreport.HealthCheckReportEdit"
         datasource="healthCheckRunDs"
         focusComponent="fieldGroup"
         messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckreport">
@@ -18,66 +18,70 @@
                 invoke="close"/>
         <action id="historyAction"
                 invoke="history"/>
+        <action id="runHealthChecksAction"
+                caption="msg://runHealthChecks"
+                invoke="runHealthChecks"/>
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="tabSheet"
+    <layout expand="checksTable"
             spacing="true">
-        <fieldGroup id="fieldGroup"
-                    datasource="healthCheckRunDs">
-            <column width="250px">
-                <field editable="false"
-                       property="executedAt"/>
-            </column>
-            <column width="250px">
-                <field editable="false"
-                       property="result"/>
-            </column>
-            <column width="250px">
-                <field editable="false"
-                       property="summary"/>
-            </column>
-        </fieldGroup>
-        <tabSheet id="tabSheet">
-            <tab id="checksTab"
-                 caption="msg://checks"
-                 margin="true">
-                <groupTable id="checksTable"
-                            height="100%"
-                            width="100%">
-                    <columns>
-                        <group>
-                            <column id="category"/>
-                        </group>
-                        <column id="name"/>
-                        <column id="result"/>
-                        <column id="message"/>
-                        <column id="detailedMessage"
-                                maxTextLength="30"/>
-                    </columns>
-                    <rows datasource="checksDs"/>
-                </groupTable>
-            </tab>
-            <tab id="detailedMessageTab"
-                 caption="msg://detailedMessage"
-                 margin="true">
-                <textArea id="detailedMessageTextArea"
-                          datasource="healthCheckRunDs"
-                          editable="false"
-                          height="100%"
-                          property="detailedMessage"
-                          width="100%"/>
-            </tab>
-        </tabSheet>
+        <buttonsPanel>
+            <button id="historyBtn"
+                    action="historyAction"
+                    caption="msg://history"
+                    icon="font-icon:HISTORY"/>
+            <button id="runHealthChecksBtn"
+                    action="runHealthChecksAction"
+                    disableOnClick="true"
+                    icon="font-icon:PLAY_CIRCLE_O"/>
+        </buttonsPanel>
+        <grid spacing="true" width="100%">
+            <columns>
+                <column flex="1.0"/>
+                <column flex="3.0"/>
+            </columns>
+            <rows>
+                <row>
+                    <fieldGroup id="fieldGroup"
+                                datasource="healthCheckRunDs"
+                                width="100%">
+                        <field editable="false"
+                               property="executedAt"/>
+                        <field editable="false"
+                               property="result"/>
+                    </fieldGroup>
+                    <fieldGroup id="summaryFieldGroup"
+                                datasource="healthCheckRunDs"
+                                width="100%">
+                        <field cols="20"
+                               editable="false"
+                               property="summary"
+                               rows="5"
+                               width="100%"/>
+                    </fieldGroup>
+                </row>
+            </rows>
+        </grid>
+        <groupTable id="checksTable"
+                    width="100%">
+            <columns>
+                <group>
+                    <column id="category"/>
+                </group>
+                <column id="name"/>
+                <column id="result"/>
+                <column id="message"/>
+                <column id="detailedMessage"
+                        maxTextLength="30"/>
+            </columns>
+            <rows datasource="checksDs"/>
+        </groupTable>
         <buttonsPanel>
             <button id="closeBtn"
                     action="closeAction"
                     caption="mainMsg://actions.Close"
                     icon="icons/ok.png"/>
-            <button id="historyBtn"
-                    action="historyAction"
-                    caption="msg://history"
-                    icon="font-icon:HISTORY"/>
         </buttonsPanel>
     </layout>
 </window>

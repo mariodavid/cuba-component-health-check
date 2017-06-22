@@ -26,11 +26,8 @@ public class HealthCheckReport extends StandardEntity {
     @Column(name = "RESULT_", nullable = false)
     protected String result;
 
-    @Column(name = "SUMMARY")
+    @Column(name = "SUMMARY", length = 4000)
     protected String summary;
-
-    @Column(name = "DETAILED_MESSAGE", length = 400)
-    protected String detailedMessage;
 
     @Composition
     @OnDelete(DeletePolicy.CASCADE)
@@ -54,14 +51,6 @@ public class HealthCheckReport extends StandardEntity {
         return summary;
     }
 
-
-    public void setDetailedMessage(String detailedMessage) {
-        this.detailedMessage = detailedMessage;
-    }
-
-    public String getDetailedMessage() {
-        return detailedMessage;
-    }
 
 
 

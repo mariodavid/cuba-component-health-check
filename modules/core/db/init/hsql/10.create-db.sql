@@ -11,8 +11,7 @@ create table DDCHC_HEALTH_CHECK_REPORT (
     --
     EXECUTED_AT timestamp not null,
     RESULT_ varchar(50) not null,
-    SUMMARY varchar(255),
-    DETAILED_MESSAGE varchar(400),
+    SUMMARY varchar(4000),
     --
     primary key (ID)
 )^

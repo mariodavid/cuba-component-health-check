@@ -7,4 +7,7 @@
             template="de/diedavids/cuba/healthcheck/web/healthcheckreport/health-check-report-edit.xml"/>
     <screen id="mainWindow"
             template="de/diedavids/cuba/healthcheck/web/screens/mainwindow-with-health-check-indicator.xml"/>
+
+    <screen id="latest-health-check-opener"
+            class="de.diedavids.cuba.healthcheck.web.screens.LatestHealthCheckOpener"/>
 </screen-config>

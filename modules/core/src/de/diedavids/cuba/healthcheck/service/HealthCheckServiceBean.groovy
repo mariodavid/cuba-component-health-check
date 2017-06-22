@@ -35,7 +35,7 @@ class HealthCheckServiceBean implements HealthCheckService {
 
 
         def run = createHealthCheckRun()
-        runChecks(run,getProgrammaticallyDefinedChecks())
+        runChecks(run, programmaticallyDefinedChecks)
         calculateHealthCheckResult(run)
         saveHealthCheckRun(run)
 
