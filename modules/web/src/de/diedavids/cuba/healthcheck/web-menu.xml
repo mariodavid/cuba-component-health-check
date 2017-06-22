@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://schemas.haulmont.com/cuba/menu.xsd">
-    <item insertBefore="entityLog"
-          screen="latest-health-check-opener"/>
-
+    <menu id="healthCheckMenu"
+          insertBefore="entityLog">
+        <item screen="latest-health-check-opener"/>
+        <item screen="ddchc$HealthCheckConfiguration.browse"/>
+    </menu>
 </menu-config>

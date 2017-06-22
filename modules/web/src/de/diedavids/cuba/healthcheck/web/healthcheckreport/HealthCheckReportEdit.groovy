@@ -5,10 +5,9 @@ import com.haulmont.cuba.gui.WindowManager
 import com.haulmont.cuba.gui.WindowParam
 import com.haulmont.cuba.gui.components.AbstractEditor
 import com.haulmont.cuba.gui.components.Button
-import com.haulmont.cuba.gui.components.Formatter
+import com.haulmont.cuba.gui.components.FieldGroup
 import com.haulmont.cuba.gui.components.ListComponent
 import com.haulmont.cuba.gui.components.Table
-import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
 import de.diedavids.cuba.healthcheck.service.HealthCheckService
@@ -32,6 +31,9 @@ class HealthCheckReportEdit extends AbstractEditor<HealthCheckReport> {
     @Inject
     HealthCheckService healthCheckService
 
+    @Inject
+    FieldGroup fieldGroup
+
     @WindowParam
     Boolean showHistory
 
@@ -47,26 +49,19 @@ class HealthCheckReportEdit extends AbstractEditor<HealthCheckReport> {
             }
         }
 
-
-
-        checksTable.getColumn('category').setFormatter(new Formatter() {
-            @Override
-            String format(Object value) {
-                messages.getMainMessage("healthCheck.categories.${value}.label")
-            }
-        })
-
-        checksTable.setStyleProvider(new Table.StyleProvider<HealthCheckReportDetail>() {
+        checksTable.styleProvider = new Table.StyleProvider<HealthCheckReportDetail>() {
             @Override
             String getStyleName(HealthCheckReportDetail entity, @Nullable String property) {
-                if (entity.result == HealthCheckResultType.ERROR) {
-                    'health-check-table-row-failure'
-                } else {
-                    'health-check-table-row-success'
-                }
+                entity.result.columnStyleName
             }
-        })
+        }
 
+
+    }
+
+    @Override
+    protected void postInit() {
+        fieldGroup.getField('result').styleName = item.result.fieldStyleName
     }
 
     void close() {

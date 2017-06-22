@@ -7,7 +7,12 @@
             template="de/diedavids/cuba/healthcheck/web/healthcheckreport/health-check-report-edit.xml"/>
     <screen id="mainWindow"
             template="de/diedavids/cuba/healthcheck/web/screens/mainwindow-with-health-check-indicator.xml"/>
-
     <screen id="latest-health-check-opener"
             class="de.diedavids.cuba.healthcheck.web.screens.LatestHealthCheckOpener"/>
+    <screen id="ddchc$HealthCheckReportDetail.edit"
+            template="de/diedavids/cuba/healthcheck/web/healthcheckreportdetail/health-check-report-detail-edit.xml"/>
+    <screen id="ddchc$HealthCheckConfiguration.browse"
+            template="de/diedavids/cuba/healthcheck/web/healthcheckconfiguration/health-check-configuration-browse.xml"/>
+    <screen id="ddchc$HealthCheckConfiguration.edit"
+            template="de/diedavids/cuba/healthcheck/web/healthcheckconfiguration/health-check-configuration-edit.xml"/>
 </screen-config>

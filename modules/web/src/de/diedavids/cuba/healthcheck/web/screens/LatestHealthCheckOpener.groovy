@@ -16,7 +16,7 @@ class LatestHealthCheckOpener implements Runnable {
         HealthCheckReport healthCheckReport = healthCheckService.getLatestHealthCheckReport()
         if (healthCheckReport) {
             WindowConfig wc = AppBeans.get(WindowConfig.NAME);
-            wm.openEditor(wc.getWindowInfo('ddchc$HealthCheckReport.edit'), healthCheckReport, WindowManager.OpenType.THIS_TAB);
+            wm.openEditor(wc.getWindowInfo('ddchc$HealthCheckReport.edit'), healthCheckReport, WindowManager.OpenType.NEW_TAB);
         }
     }
 }

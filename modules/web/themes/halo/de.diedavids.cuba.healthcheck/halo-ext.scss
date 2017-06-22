@@ -1,10 +1,20 @@
 /* Define your theme modifications inside next mixin */
 @mixin de_diedavids_cuba_healthcheck-halo-ext {
 
-  .health-check-table-row-failure span.v-icon {
+  .health-check-table-row-error span.v-icon {
     color: red;
   }
   .health-check-table-row-success span.v-icon {
     color: green;
+  }
+
+  .health-check-field-success input {
+    color: #fff;
+    background: green;
+  }
+
+  .health-check-field-error input {
+    color: #fff !important;
+    background: red !important;
   }
 }

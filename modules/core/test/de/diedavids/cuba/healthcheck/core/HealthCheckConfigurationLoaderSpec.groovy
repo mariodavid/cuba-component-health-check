@@ -1,17 +1,17 @@
 package de.diedavids.cuba.healthcheck.core
 
 import com.haulmont.cuba.core.global.Resources
-import de.diedavids.cuba.healthcheck.TestHealthCheckConfiguration
+import de.diedavids.cuba.healthcheck.TestHealthCheckConfigurationLoader
 import org.springframework.core.io.ByteArrayResource
 import spock.lang.Specification
 
-class HealthCheckConfigurationSpec extends Specification {
+class HealthCheckConfigurationLoaderSpec extends Specification {
     Resources resources
-    TestHealthCheckConfiguration sut
+    TestHealthCheckConfigurationLoader sut
 
     def setup() {
         resources = Mock(Resources)
-        sut = new TestHealthCheckConfiguration(
+        sut = new TestHealthCheckConfigurationLoader(
                 resources: resources,
                 mockedAppContextProperty: '/de/diedavids/cuba/healtchecks.xml'
         )
@@ -28,10 +28,10 @@ class HealthCheckConfigurationSpec extends Specification {
 
         when:
         def allHealthChecks = sut.healthChecks
-        HealthCheckConfiguration.DatabaseEntityHealthCheckInfo declarativeCheck = allHealthChecks[0]
+        HealthCheckConfigurationLoader.DatabaseEntityHealthCheckInfo declarativeCheck = allHealthChecks[0]
 
         then:
-        declarativeCheck instanceof HealthCheckConfiguration.DatabaseEntityHealthCheckInfo
+        declarativeCheck instanceof HealthCheckConfigurationLoader.DatabaseEntityHealthCheckInfo
         declarativeCheck.name == 'roleExistsDeclarativly'
         declarativeCheck.jpql == "select e from sec\$Role e where e.name = 'my-declarative-role'"
     }
@@ -44,10 +44,10 @@ class HealthCheckConfigurationSpec extends Specification {
 
         when:
         def allHealthChecks = sut.healthChecks
-        HealthCheckConfiguration.HttpConnectionHealthCheckInfo declarativeCheck = allHealthChecks[0]
+        HealthCheckConfigurationLoader.HttpConnectionHealthCheckInfo declarativeCheck = allHealthChecks[0]
 
         then:
-        declarativeCheck instanceof HealthCheckConfiguration.HttpConnectionHealthCheckInfo
+        declarativeCheck instanceof HealthCheckConfigurationLoader.HttpConnectionHealthCheckInfo
         declarativeCheck.name == 'httpConnectionCheck'
     }
 

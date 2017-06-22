@@ -8,6 +8,7 @@ import com.haulmont.chile.core.annotations.NamePattern;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 
 @NamePattern("%s (%s)|name,result")
 @Table(name = "DDCHC_HEALTH_CHECK_REPORT_DETAIL")
@@ -27,12 +28,26 @@ public class HealthCheckReportDetail extends StandardEntity {
     @Column(name = "MESSAGE")
     protected String message;
 
-    @Column(name = "DETAILED_MESSAGE", length = 4000)
+    @Lob
+    @Column(name = "DETAILED_MESSAGE")
     protected String detailedMessage;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "HEALTH_CHECK_RUN_ID")
     protected HealthCheckReport healthCheckReport;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "CONFIGURATION_ID")
+    protected HealthCheckConfiguration configuration;
+
+    public void setConfiguration(HealthCheckConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    public HealthCheckConfiguration getConfiguration() {
+        return configuration;
+    }
+
 
     public void setDetailedMessage(String detailedMessage) {
         this.detailedMessage = detailedMessage;

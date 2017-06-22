@@ -1,8 +1,8 @@
 package de.diedavids.cuba.healthcheck
 
-import de.diedavids.cuba.healthcheck.core.HealthCheckConfiguration;
+import de.diedavids.cuba.healthcheck.core.HealthCheckConfigurationLoader;
 
-class TestHealthCheckConfiguration extends HealthCheckConfiguration {
+class TestHealthCheckConfigurationLoader extends HealthCheckConfigurationLoader {
 
     String mockedAppContextProperty
 

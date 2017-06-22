@@ -36,7 +36,8 @@
                     disableOnClick="true"
                     icon="font-icon:PLAY_CIRCLE_O"/>
         </buttonsPanel>
-        <grid spacing="true" width="100%">
+        <grid spacing="true"
+              width="100%">
             <columns>
                 <column flex="1.0"/>
                 <column flex="3.0"/>
@@ -65,15 +66,20 @@
         </grid>
         <groupTable id="checksTable"
                     width="100%">
+            <actions>
+                <action id="edit"
+                        openType="DIALOG"/>
+                <action id="remove"/>
+            </actions>
             <columns>
                 <group>
-                    <column id="category"/>
+                    <column id="category">
+                        <formatter class="de.diedavids.cuba.healthcheck.web.CategoryLocalNameFormatter"/>
+                    </column>
                 </group>
                 <column id="name"/>
                 <column id="result"/>
                 <column id="message"/>
-                <column id="detailedMessage"
-                        maxTextLength="30"/>
             </columns>
             <rows datasource="checksDs"/>
         </groupTable>

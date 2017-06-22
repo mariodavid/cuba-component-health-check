@@ -1,7 +1,7 @@
 package de.diedavids.cuba.healthcheck.service
 
 import com.haulmont.cuba.core.global.Resources
-import de.diedavids.cuba.healthcheck.TestHealthCheckConfiguration
+import de.diedavids.cuba.healthcheck.TestHealthCheckConfigurationLoader
 import org.springframework.core.io.ByteArrayResource
 import spock.lang.Specification
 
@@ -20,7 +20,7 @@ class HealthCheckServiceBeanSpec extends Specification {
 
         given:
         def sut = new HealthCheckServiceBean(
-                healthCheckConfiguration: new TestHealthCheckConfiguration(
+                healthCheckConfiguration: new TestHealthCheckConfigurationLoader(
                         resources: resources,
                         mockedAppContextProperty: '/de/diedavids/cuba/healtchecks.xml'
                 )

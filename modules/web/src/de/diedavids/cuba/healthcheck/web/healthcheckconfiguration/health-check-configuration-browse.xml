@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration.HealthCheckConfigurationBrowse"
+        focusComponent="healthCheckConfigurationsTable"
+        lookupComponent="healthCheckConfigurationsTable"
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration">
+    <dsContext>
+        <groupDatasource id="healthCheckConfigurationsDs"
+                         class="de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration"
+                         view="_local">
+            <query>
+                <![CDATA[select e from ddchc$HealthCheckConfiguration e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="healthCheckConfigurationsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="healthCheckConfigurationsTable"
+                datasource="healthCheckConfigurationsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="healthCheckConfigurationsTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="active"/>
+                <column id="healthCheckClass"/>
+                <column id="description"/>
+                <column id="solutionInformation"/>
+            </columns>
+            <rows datasource="healthCheckConfigurationsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="healthCheckConfigurationsTable.create"/>
+                <button id="editBtn"
+                        action="healthCheckConfigurationsTable.edit"/>
+                <button id="removeBtn"
+                        action="healthCheckConfigurationsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

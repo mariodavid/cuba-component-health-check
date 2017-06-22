@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckreportdetail.HealthCheckReportDetailEdit"
+        datasource="healthCheckReportDetailDs"
+        focusComponent="fieldGroup"
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckreportdetail">
+    <dsContext>
+        <datasource id="healthCheckReportDetailDs"
+                    class="de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail"
+                    view="healthCheckReportDetail-view"/>
+    </dsContext>
+    <dialogMode height="600"
+                resizable="true"
+                width="800"/>
+    <layout expand="detailedInformationAccordion"
+            spacing="true">
+        <fieldGroup id="fieldGroup" editable="false"
+                    datasource="healthCheckReportDetailDs">
+            <column width="250px">
+                <field property="name" editable="false"/>
+                <field property="category" editable="false">
+                    <formatter class="de.diedavids.cuba.healthcheck.web.CategoryLocalNameFormatter"/>
+                </field>
+            </column>
+            <column width="250px">
+                <field property="result" editable="false"/>
+                <field property="message" editable="false"/>
+            </column>
+        </fieldGroup>
+        <accordion id="detailedInformationAccordion" width="100%">
+            <tab id="detailedMessageTab" margin="true"
+                 caption="msg://detailedMessage">
+                <textArea id="detailedMessageTextArea"
+                          width="100%"
+                          height="100%"
+                          stylename="borderless"
+                          wordwrap="false"
+                          datasource="healthCheckReportDetailDs"
+                          editable="false"
+                          property="detailedMessage"/>
+
+            </tab>
+            <tab id="checkDescriptionTab" margin="true"
+                 caption="msg://healthCheckDescription">
+                <scrollBox height="100%">
+                    <label id="checkDescriptionLabel"
+                           datasource="healthCheckReportDetailDs"
+                           property="configuration.description"
+                           width="100%"
+                           height="100%"/>
+                </scrollBox>
+
+            </tab>
+            <tab id="solutionInformationTab" margin="true"
+                 caption="msg://solutionInformation">
+                <scrollBox height="100%">
+                    <label id="solutionInformationLabel"
+                           datasource="healthCheckReportDetailDs"
+                           property="configuration.solutionInformation"
+                           width="100%"
+                           height="100%"/>
+                </scrollBox>
+
+            </tab>
+        </accordion>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

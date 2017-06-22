@@ -6,4 +6,10 @@
         <property name="checks"
                   view="_local"/>
     </view>
+    <view class="de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail"
+          extends="_local"
+          name="healthCheckReportDetail-view">
+        <property name="configuration"
+                  view="_local"/>
+    </view>
 </views>

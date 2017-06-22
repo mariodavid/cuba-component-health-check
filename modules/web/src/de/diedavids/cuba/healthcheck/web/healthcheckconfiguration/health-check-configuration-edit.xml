@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://editorCaption"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration.HealthCheckConfigurationEdit"
+        datasource="healthCheckConfigurationDs"
+        focusComponent="fieldGroup"
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration">
+    <dsContext>
+        <datasource id="healthCheckConfigurationDs"
+                    class="de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration"
+                    view="_local"/>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="descriptionTabSheet"
+            spacing="true">
+        <fieldGroup id="fieldGroup"
+                    datasource="healthCheckConfigurationDs">
+            <column width="250px">
+                <field property="healthCheckClass" custom="true"/>
+            </column>
+            <column width="250px">
+                <field property="active"/>
+            </column>
+        </fieldGroup>
+        <tabSheet width="100%" id="descriptionTabSheet">
+            <tab id="descriptionTab" caption="msg://description" margin="true">
+                <textArea id="descriptionMessageTextArea"
+                          width="100%"
+                          height="100%"
+                          datasource="healthCheckConfigurationDs"
+                          property="description" />
+
+            </tab>
+            <tab id="solutionInformationTab" caption="msg://solutionInformation" margin="true">
+                <textArea id="solutionInformationMessageTextArea"
+                          width="100%"
+                          height="100%"
+                          datasource="healthCheckConfigurationDs"
+                          property="solutionInformation" />
+
+            </tab>
+        </tabSheet>
+        <frame id="windowActions"
+               screen="editWindowActions"/>
+    </layout>
+</window>

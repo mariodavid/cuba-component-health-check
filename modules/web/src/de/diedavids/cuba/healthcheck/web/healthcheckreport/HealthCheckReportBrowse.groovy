@@ -6,7 +6,6 @@ import com.haulmont.cuba.gui.components.ListComponent
 import com.haulmont.cuba.gui.components.Table
 import com.haulmont.cuba.gui.data.GroupDatasource
 import com.haulmont.cuba.gui.xml.layout.ComponentsFactory
-import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
 import de.diedavids.cuba.healthcheck.service.HealthCheckService
 
@@ -40,17 +39,12 @@ class HealthCheckReportBrowse extends AbstractLookup {
                 entity.result.icon
             }
         }
-        healthCheckRunsTable.setStyleProvider(new Table.StyleProvider<HealthCheckReport>() {
+        healthCheckRunsTable.styleProvider = new Table.StyleProvider<HealthCheckReport>() {
             @Override
             String getStyleName(HealthCheckReport entity, @Nullable String property) {
-                if (entity.result == HealthCheckResultType.ERROR) {
-                    'health-check-table-row-failure'
-                }
-                else {
-                    'health-check-table-row-success'
-                }
+                entity.result.columnStyleName
             }
-        })
+        }
     }
 
 

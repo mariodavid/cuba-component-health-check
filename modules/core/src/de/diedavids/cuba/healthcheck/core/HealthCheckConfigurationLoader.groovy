@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Component
 
-import javax.annotation.Nullable
 import javax.inject.Inject
 import java.util.concurrent.locks.ReadWriteLock
 import java.util.concurrent.locks.ReentrantReadWriteLock
@@ -26,12 +25,12 @@ import java.util.concurrent.locks.ReentrantReadWriteLock
  * be returned.
  */
 
-@Component("ddchc_HealthCheckConfiguration")
-class HealthCheckConfiguration {
+@Component("ddchc_HealthCheckConfigurationLoader")
+class HealthCheckConfigurationLoader {
 
     protected final String CUBA_HEALTH_CHECK_CONFIG_PROP_NAME = "ddchc.healthCheckConfig"
 
-    private final Logger log = LoggerFactory.getLogger(HealthCheckConfiguration.class)
+    private final Logger log = LoggerFactory.getLogger(HealthCheckConfigurationLoader.class)
 
     protected volatile boolean initialized
 
