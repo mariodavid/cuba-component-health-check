@@ -43,6 +43,7 @@
                 <column id="name"/>
                 <column id="type"/>
                 <column id="active"/>
+                <column id="initial"/>
             </columns>
             <rows datasource="healthCheckConfigurationsDs"/>
             <rowsCount/>

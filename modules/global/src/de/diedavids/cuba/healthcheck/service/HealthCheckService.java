@@ -13,5 +13,7 @@ public interface HealthCheckService {
 
     HealthCheckReport getLatestHealthCheckReport();
 
+    boolean hasApplicationSuccessfulInitialCheck();
+
     Map<String, HealthCheck> getProgrammaticallyDefinedChecks();
 }

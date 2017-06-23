@@ -34,6 +34,18 @@ public class HealthCheckReport extends StandardEntity {
     @OneToMany(mappedBy = "healthCheckReport")
     protected List<HealthCheckReportDetail> checks;
 
+    @Column(name = "INITIAL_CHECK")
+    protected Boolean initialCheck;
+
+    public void setInitialCheck(Boolean initialCheck) {
+        this.initialCheck = initialCheck;
+    }
+
+    public Boolean getInitialCheck() {
+        return initialCheck;
+    }
+
+
     public void setChecks(List<HealthCheckReportDetail> checks) {
         this.checks = checks;
     }

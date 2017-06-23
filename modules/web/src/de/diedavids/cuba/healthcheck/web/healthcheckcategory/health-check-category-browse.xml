@@ -32,7 +32,6 @@
             </actions>
             <columns>
                 <column id="name"/>
-                <column id="code"/>
             </columns>
             <rows datasource="healthCheckCategoriesDs"/>
             <rowsCount/>

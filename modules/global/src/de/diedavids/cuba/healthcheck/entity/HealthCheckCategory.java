@@ -16,23 +16,12 @@ public class HealthCheckCategory extends StandardEntity {
     @Column(name = "NAME", nullable = false)
     protected String name;
 
-    @Column(name = "CODE")
-    protected String code;
-
     public void setName(String name) {
         this.name = name;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
     }
 
 

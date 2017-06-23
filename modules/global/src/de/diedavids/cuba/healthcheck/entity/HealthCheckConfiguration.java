@@ -42,6 +42,18 @@ public class HealthCheckConfiguration extends StandardEntity {
     @JoinColumn(name = "CATEGORY_ID")
     protected HealthCheckCategory category;
 
+    @Column(name = "INITIAL_")
+    protected Boolean initial;
+
+    public void setInitial(Boolean initial) {
+        this.initial = initial;
+    }
+
+    public Boolean getInitial() {
+        return initial;
+    }
+
+
     public void setCategory(HealthCheckCategory category) {
         this.category = category;
     }

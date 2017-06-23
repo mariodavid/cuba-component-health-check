@@ -18,7 +18,6 @@
                     datasource="healthCheckCategoryDs">
             <column width="250px">
                 <field property="name"/>
-                <field property="code"/>
             </column>
         </fieldGroup>
         <frame id="windowActions"

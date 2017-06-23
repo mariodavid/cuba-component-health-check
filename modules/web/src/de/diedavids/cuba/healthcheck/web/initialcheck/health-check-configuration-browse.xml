@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://caption"
+        class="de.diedavids.cuba.healthcheck.web.initialcheck.HealthCheckConfigurationBrowse"
+        focusComponent="healthCheckConfigurationsTable"
+        lookupComponent="healthCheckConfigurationsTable"
+        messagesPack="de.diedavids.cuba.healthcheck.web.initialcheck">
+    <dsContext>
+        <datasource id="healthCheckConfigurationDs"
+                    class="de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration"
+                    view="healthCheckConfiguration-view"/>
+        <groupDatasource id="healthCheckConfigurationsDs"
+                         class="de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration"
+                         view="healthCheckConfiguration-view">
+            <query>
+                <![CDATA[select e from ddchc$HealthCheckConfiguration e where e.initial = true]]>
+            </query>
+        </groupDatasource>
+        <collectionDatasource id="categoriesDs"
+                              class="de.diedavids.cuba.healthcheck.entity.HealthCheckCategory"
+                              view="_minimal">
+            <query>
+                <![CDATA[select e from ddchc$HealthCheckCategory e]]>
+            </query>
+        </collectionDatasource>
+    </dsContext>
+    <actions>
+        <action id="save"
+                caption="mainMsg://actions.Ok"
+                icon="icons/ok.png"
+                invoke="save"
+                shortcut="CTRL-ENTER"/>
+        <action id="cancel"
+                caption="mainMsg://actions.Cancel"
+                icon="icons/cancel.png"
+                invoke="cancel"/>
+    </actions>
+    <dialogMode height="600"
+                resizable="true"
+                width="800"/>
+    <layout>
+        <split id="split"
+               height="100%"
+               orientation="vertical"
+               reversePosition="true"
+               locked="true"
+               width="100%">
+            <vbox id="lookupBox"
+                  height="100%"
+                  margin="false,true,false,false"
+                  spacing="true">
+                <groupTable id="healthCheckConfigurationsTable"
+                            fixedGrouping="true"
+                            height="100%"
+                            contextMenuEnabled="false"
+                            presentations="false"
+                            reorderingAllowed="false"
+                            settingsEnabled="false"
+                            columnControlVisible="false"
+                            columnHeaderVisible="false"
+
+                            width="100%">
+                    <columns>
+                        <group>
+                            <column id="category" />
+                        </group>
+                        <column id="name"/>
+                    </columns>
+                    <rows datasource="healthCheckConfigurationsDs"/>
+                </groupTable>
+            </vbox>
+            <vbox id="editBox"
+                  expand="descriptionTabSheet"
+                  height="100%"
+                  margin="false,false,false,true"
+                  spacing="true">
+                <fieldGroup id="fieldGroup" visible="false"
+                            datasource="healthCheckConfigurationDs">
+                    <column width="250px">
+                        <field property="name" editable="false"/>
+                        <field property="category"/>
+                    </column>
+                </fieldGroup>
+                <tabSheet width="100%" id="descriptionTabSheet">
+                    <tab id="descriptionTab" caption="msg://description" margin="true">
+                        <scrollBox id="descriptionTabScrollBox" width="100%" height="100%">
+                        <label id="descriptionMessageLabel"
+                                  width="100%"
+                               htmlEnabled="true"
+                                  height="100%"
+                                  datasource="healthCheckConfigurationDs"
+                                  property="description"/>
+                        </scrollBox>
+
+                    </tab>
+                    <tab id="solutionInformationTab"
+                         caption="msg://solutionInformation"
+                         margin="true"
+                         expand="solutionInformationTabScrollBox">
+                        <scrollBox id="solutionInformationTabScrollBox" width="100%" height="100%">
+                            <label id="solutionInformationMessageLabel"
+                                   width="100%"
+                                   htmlEnabled="true"
+                                   height="100%"
+                                   datasource="healthCheckConfigurationDs"
+                                   property="solutionInformation"/>
+                        </scrollBox>
+
+                    </tab>
+                </tabSheet>
+                <hbox id="actionsPane"
+                      spacing="true"
+                      visible="false">
+                    <button id="saveBtn"
+                            action="save"/>
+                    <button id="cancelBtn"
+                            action="cancel"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

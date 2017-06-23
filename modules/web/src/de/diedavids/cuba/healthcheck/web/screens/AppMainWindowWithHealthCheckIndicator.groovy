@@ -28,6 +28,18 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
     void ready() {
         super.ready()
 
+        initLatestHealthCheckBtn()
+
+        initInitialCheckWindow()
+    }
+
+    protected void initInitialCheckWindow() {
+        if (!healthCheckService.hasApplicationSuccessfulInitialCheck()) {
+
+            openWindow('ddchc$InitialCheck', WindowManager.OpenType.DIALOG)
+        }
+    }
+    protected void initLatestHealthCheckBtn() {
         if (security.isEntityOpPermitted(HealthCheckReport, EntityOp.READ)) {
 
             HealthCheckReport healthCheckReport = healthCheckService.getLatestHealthCheckReport()
@@ -37,8 +49,7 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
                 healthCheckStatusBtn.icon = healthCheckReport.result.icon
                 if (healthCheckReport.result == HealthCheckResultType.ERROR) {
                     healthCheckStatusBtn.styleName = 'danger'
-                }
-                else {
+                } else {
                     healthCheckStatusBtn.styleName = 'friendly'
                 }
                 healthCheckStatusBtn.action = new BaseAction('showHealthCheck') {

@@ -68,6 +68,23 @@ class HealthCheckServiceBean implements HealthCheckService {
         dataManager.load(loadContext)
     }
 
+    @Override
+    boolean hasApplicationSuccessfulInitialCheck() {
+        LoadContext loadContext = LoadContext.create(HealthCheckReport)
+                .setQuery(
+                LoadContext.createQuery('select e from ddchc$HealthCheckReport e where e.initialCheck = true and e.result = @enum(de.diedavids.cuba.healthcheck.entity.HealthCheckResultType.SUCCESS) order by e.executedAt desc').setMaxResults(1)
+
+        )
+        def item = dataManager.load(loadContext)
+
+        if (item) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
     HealthCheckReport runChecks(HealthCheckReport run, Map<String, HealthCheck> healthChecks) {
 
         run.executedAt = timeSource.currentTimestamp()

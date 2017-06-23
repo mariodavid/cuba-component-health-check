@@ -12,6 +12,7 @@ create table DDCHC_HEALTH_CHECK_REPORT (
     EXECUTED_AT timestamp not null,
     RESULT_ varchar(50) not null,
     SUMMARY varchar(4000),
+    INITIAL_CHECK boolean,
     --
     primary key (ID)
 )^
@@ -55,6 +56,7 @@ create table DDCHC_HEALTH_CHECK_CONFIGURATION (
     DESCRIPTION varchar(4000),
     SOLUTION_INFORMATION varchar(4000),
     CATEGORY_ID varchar(36),
+    INITIAL_ boolean,
     --
     -- from ddchc$CustomHealthCheckConfiguration
     SCRIPT longvarchar,
@@ -75,7 +77,6 @@ create table DDCHC_HEALTH_CHECK_CATEGORY (
     DELETED_BY varchar(50),
     --
     NAME varchar(255) not null,
-    CODE varchar(255),
     --
     primary key (ID)
 )^
