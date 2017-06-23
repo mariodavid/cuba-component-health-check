@@ -24,7 +24,8 @@ public class HealthCheckConfiguration extends StandardEntity {
     @Column(name = "ACTIVE")
     protected Boolean active;
 
-    @Column(name = "NAME")
+    @NotNull
+    @Column(name = "NAME", nullable = false)
     protected String name;
 
     @Column(name = "CODE")

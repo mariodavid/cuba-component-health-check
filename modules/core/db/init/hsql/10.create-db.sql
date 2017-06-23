@@ -50,7 +50,7 @@ create table DDCHC_HEALTH_CHECK_CONFIGURATION (
     --
     TYPE_ varchar(50) not null,
     ACTIVE boolean,
-    NAME varchar(255),
+    NAME varchar(255) not null,
     CODE varchar(255),
     DESCRIPTION varchar(4000),
     SOLUTION_INFORMATION varchar(4000),
