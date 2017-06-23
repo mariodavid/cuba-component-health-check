@@ -2,22 +2,16 @@ package de.diedavids.cuba.healthcheck.entity;
 
 import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.Lookup;
+import com.haulmont.cuba.core.entity.annotation.LookupType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.persistence.InheritanceType;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Inheritance;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Lob;
-import javax.persistence.DiscriminatorValue;
 
 @DiscriminatorValue("GENERAL")
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
-@Inheritance(strategy = InheritanceType.JOINED)
-@NamePattern("%s (%s)|healthCheckClass,active")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NamePattern("%s (%s)|name,active")
 @Table(name = "DDCHC_HEALTH_CHECK_CONFIGURATION")
 @Entity(name = "ddchc$HealthCheckConfiguration")
 public class HealthCheckConfiguration extends StandardEntity {
@@ -42,12 +36,19 @@ public class HealthCheckConfiguration extends StandardEntity {
     @Column(name = "SOLUTION_INFORMATION", length = 4000)
     protected String solutionInformation;
 
-    @Column(name = "HEALTH_CHECK_CLASS")
-    protected String healthCheckClass;
+    @Lookup(type = LookupType.DROPDOWN, actions = {"lookup", "clear"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID")
+    protected HealthCheckCategory category;
 
-    @Lob
-    @Column(name = "SCRIPT")
-    protected String script;
+    public void setCategory(HealthCheckCategory category) {
+        this.category = category;
+    }
+
+    public HealthCheckCategory getCategory() {
+        return category;
+    }
+
 
     public void setCode(String code) {
         this.code = code;
@@ -66,14 +67,6 @@ public class HealthCheckConfiguration extends StandardEntity {
         return name;
     }
 
-
-    public void setScript(String script) {
-        this.script = script;
-    }
-
-    public String getScript() {
-        return script;
-    }
 
 
     public void setType(HealthCheckType type) {
@@ -108,14 +101,6 @@ public class HealthCheckConfiguration extends StandardEntity {
 
     public Boolean getActive() {
         return active;
-    }
-
-    public void setHealthCheckClass(String healthCheckClass) {
-        this.healthCheckClass = healthCheckClass;
-    }
-
-    public String getHealthCheckClass() {
-        return healthCheckClass;
     }
 
 

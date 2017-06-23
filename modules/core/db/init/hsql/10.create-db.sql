@@ -28,7 +28,6 @@ create table DDCHC_HEALTH_CHECK_REPORT_DETAIL (
     DELETED_BY varchar(50),
     --
     RESULT_ varchar(50) not null,
-    CATEGORY varchar(255),
     MESSAGE varchar(255),
     DETAILED_MESSAGE longvarchar,
     HEALTH_CHECK_RUN_ID varchar(36) not null,
@@ -55,18 +54,29 @@ create table DDCHC_HEALTH_CHECK_CONFIGURATION (
     CODE varchar(255),
     DESCRIPTION varchar(4000),
     SOLUTION_INFORMATION varchar(4000),
-    HEALTH_CHECK_CLASS varchar(255),
+    CATEGORY_ID varchar(36),
+    --
+    -- from ddchc$CustomHealthCheckConfiguration
     SCRIPT longvarchar,
     --
     primary key (ID)
 )^
 -- end DDCHC_HEALTH_CHECK_CONFIGURATION
--- begin DDCHC_CUSTOM_HEALTH_CHECK_CONFIGURATION
-create table DDCHC_CUSTOM_HEALTH_CHECK_CONFIGURATION (
+
+-- begin DDCHC_HEALTH_CHECK_CATEGORY
+create table DDCHC_HEALTH_CHECK_CATEGORY (
     ID varchar(36) not null,
+    VERSION integer not null,
+    CREATE_TS timestamp,
+    CREATED_BY varchar(50),
+    UPDATE_TS timestamp,
+    UPDATED_BY varchar(50),
+    DELETE_TS timestamp,
+    DELETED_BY varchar(50),
     --
-    COOL varchar(255),
+    NAME varchar(255) not null,
+    CODE varchar(255),
     --
     primary key (ID)
 )^
--- end DDCHC_CUSTOM_HEALTH_CHECK_CONFIGURATION
+-- end DDCHC_HEALTH_CHECK_CATEGORY

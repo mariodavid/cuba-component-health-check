@@ -18,12 +18,6 @@ public interface HealthCheck {
      */
     HealthCheckReportDetail check();
 
-    /**
-     * defines the category of the health check
-     * @return the category
-     */
-    String getCategory();
-
     HealthCheckConfiguration getConfiguration();
 
 }

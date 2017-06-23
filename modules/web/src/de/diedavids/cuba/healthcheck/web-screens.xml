@@ -17,4 +17,8 @@
             template="de/diedavids/cuba/healthcheck/web/healthcheckconfiguration/health-check-configuration-edit.xml"/>
     <screen id="ddchc$CustomHealthCheckConfiguration.edit"
             template="de/diedavids/cuba/healthcheck/web/healthcheckconfiguration/custom-health-check-configuration-edit.xml"/>
+    <screen id="ddchc$HealthCheckCategory.browse"
+            template="de/diedavids/cuba/healthcheck/web/healthcheckcategory/health-check-category-browse.xml"/>
+    <screen id="ddchc$HealthCheckCategory.edit"
+            template="de/diedavids/cuba/healthcheck/web/healthcheckcategory/health-check-category-edit.xml"/>
 </screen-config>

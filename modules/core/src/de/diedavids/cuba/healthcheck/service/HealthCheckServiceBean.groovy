@@ -5,7 +5,9 @@ import de.diedavids.cuba.healthcheck.HealthCheck
 import de.diedavids.cuba.healthcheck.core.HealthCheckConfigurationLoader
 import de.diedavids.cuba.healthcheck.core.healthchecks.CustomScriptHealthCheck
 import de.diedavids.cuba.healthcheck.data.SimpleDataLoader
+import de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealtCheckReportDetailFactory
+import de.diedavids.cuba.healthcheck.entity.HealthCheckCategory
 import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
@@ -109,13 +111,14 @@ class HealthCheckServiceBean implements HealthCheckService {
     }
 
     Map<String, HealthCheck> getCustomDefinedChecks() {
-        LoadContext loadContext = LoadContext.create(HealthCheckConfiguration)
-                .setQuery(LoadContext.createQuery('select e from ddchc$HealthCheckConfiguration e where e.type = @enum(de.diedavids.cuba.healthcheck.entity.HealthCheckType.CUSTOM)')
-        )
+        LoadContext loadContext = LoadContext.create(CustomHealthCheckConfiguration)
+                .setQuery(LoadContext.createQuery('select e from ddchc$CustomHealthCheckConfiguration e')
 
-        Collection<HealthCheckConfiguration> customHealthChecks = dataManager.loadList(loadContext)
+        ).setView('customHealthCheckConfiguration-view')
 
-        customHealthChecks.collectEntries { HealthCheckConfiguration configuration ->
+        Collection<CustomHealthCheckConfiguration> customHealthChecks = dataManager.loadList(loadContext)
+
+        customHealthChecks.collectEntries { CustomHealthCheckConfiguration configuration ->
             def check = new CustomScriptHealthCheck(
                     scripting: scripting,
                     healtCheckReportDetailFactory: healtCheckReportDetailFactory,
@@ -135,7 +138,6 @@ class HealthCheckServiceBean implements HealthCheckService {
         HealthCheckReportDetail result = metadata.create(HealthCheckReportDetail)
         result.result = HealthCheckResultType.ERROR
         result.message = e.message
-        result.category = healthCheck.category
         result.detailedMessage = createDetailedMessageFromException(e)
         result
     }

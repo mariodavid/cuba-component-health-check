@@ -16,7 +16,7 @@ public abstract class DefaultHealthCheck extends AbstractHealthCheck {
     @Override
     public HealthCheckConfiguration getConfiguration() {
         if (configuration == null) {
-            configuration = simpleDataLoader.loadByProperty(HealthCheckConfiguration.class, "code", getConfigurationCode());
+            configuration = simpleDataLoader.loadByProperty(HealthCheckConfiguration.class, "code", getConfigurationCode(), "healthCheckConfiguration-view");
         }
         return configuration;
     }

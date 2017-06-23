@@ -1,7 +1,7 @@
 package de.diedavids.cuba.healthcheck.core.healthchecks
 
 import com.haulmont.cuba.core.global.Scripting
-import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration
+import de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
 import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import org.apache.commons.lang.exception.ExceptionUtils
@@ -9,18 +9,12 @@ import org.codehaus.groovy.runtime.MethodClosure
 
 class CustomScriptHealthCheck extends AbstractHealthCheck {
 
-    HealthCheckConfiguration configuration
+    CustomHealthCheckConfiguration configuration
     Scripting scripting
 
     @Override
     HealthCheckReportDetail check() {
-        def result = healtCheckReportDetailFactory.createResult(
-                configuration,
-                HealthCheckResultType.ERROR,
-                "custom",
-                "meineMessage",
-                "detailedMessage"
-        )
+        def result = healtCheckReportDetailFactory.error(configuration, "", "")
 
         Binding binding = initBinding()
         try {
@@ -47,11 +41,6 @@ class CustomScriptHealthCheck extends AbstractHealthCheck {
         binding.setProperty("warning", new MethodClosure(this, "warning"))
         binding.setProperty("success", new MethodClosure(this, "success"))
         binding
-    }
-
-    @Override
-    String getCategory() {
-        return configuration.name
     }
 
     private String createDetailedMessageFromException(Exception e) {

@@ -4,5 +4,6 @@
           insertBefore="entityLog">
         <item screen="latest-health-check-opener"/>
         <item screen="ddchc$HealthCheckConfiguration.browse"/>
+        <item screen="ddchc$HealthCheckCategory.browse"/>
     </menu>
 </menu-config>

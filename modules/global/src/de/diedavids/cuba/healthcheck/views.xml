@@ -4,12 +4,24 @@
           extends="_local"
           name="healthCheckReport-view">
         <property name="checks"
-                  view="_local"/>
+                  view="healthCheckReportDetail-view"/>
     </view>
     <view class="de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail"
           extends="_local"
           name="healthCheckReportDetail-view">
         <property name="configuration"
-                  view="_local"/>
+                  view="healthCheckConfiguration-view"/>
+    </view>
+    <view class="de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration"
+          extends="_local"
+          name="healthCheckConfiguration-view">
+        <property name="category"
+                  view="_minimal"/>
+    </view>
+    <view class="de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration"
+          extends="_local"
+          name="customHealthCheckConfiguration-view">
+        <property name="category"
+                  view="_minimal"/>
     </view>
 </views>

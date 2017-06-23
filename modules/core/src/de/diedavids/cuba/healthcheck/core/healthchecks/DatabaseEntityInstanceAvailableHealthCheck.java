@@ -3,7 +3,6 @@ package de.diedavids.cuba.healthcheck.core.healthchecks;
 import com.haulmont.cuba.core.entity.Entity;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
-import de.diedavids.cuba.healthcheck.HealthCheckCategories;
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,10 +50,5 @@ public abstract class DatabaseEntityInstanceAvailableHealthCheck<T extends Entit
      * @return the loadContext describing the load of the single entity instance
      */
     protected abstract LoadContext<T> createSingleEntityLoadContext();
-
-    @Override
-    public String getCategory() {
-        return HealthCheckCategories.DB;
-    }
 
 }

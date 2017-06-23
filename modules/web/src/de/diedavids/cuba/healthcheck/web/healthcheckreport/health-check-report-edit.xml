@@ -73,10 +73,9 @@
             </actions>
             <columns>
                 <group>
-                    <column id="category">
-                        <formatter class="de.diedavids.cuba.healthcheck.web.CategoryLocalNameFormatter"/>
-                    </column>
+                    <column id="configuration.category" />
                 </group>
+                <column id="configuration.name"/>
                 <column id="result"/>
                 <column id="message"/>
             </columns>

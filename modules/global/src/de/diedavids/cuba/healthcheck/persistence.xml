@@ -7,5 +7,6 @@
         <class>de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail</class>
         <class>de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration</class>
         <class>de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration</class>
+        <class>de.diedavids.cuba.healthcheck.entity.HealthCheckCategory</class>
     </persistence-unit>
 </persistence>

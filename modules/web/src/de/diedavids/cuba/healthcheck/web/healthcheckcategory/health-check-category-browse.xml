@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://browseCaption"
+        class="de.diedavids.cuba.healthcheck.web.healthcheckcategory.HealthCheckCategoryBrowse"
+        focusComponent="healthCheckCategoriesTable"
+        lookupComponent="healthCheckCategoriesTable"
+        messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckcategory">
+    <dsContext>
+        <groupDatasource id="healthCheckCategoriesDs"
+                         class="de.diedavids.cuba.healthcheck.entity.HealthCheckCategory"
+                         view="_local">
+            <query>
+                <![CDATA[select e from ddchc$HealthCheckCategory e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="healthCheckCategoriesTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="healthCheckCategoriesTable"
+                datasource="healthCheckCategoriesDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="healthCheckCategoriesTable"
+                    width="100%">
+            <actions>
+                <action id="create"/>
+                <action id="edit"/>
+                <action id="remove"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="code"/>
+            </columns>
+            <rows datasource="healthCheckCategoriesDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn"
+                        action="healthCheckCategoriesTable.create"/>
+                <button id="editBtn"
+                        action="healthCheckCategoriesTable.edit"/>
+                <button id="removeBtn"
+                        action="healthCheckCategoriesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

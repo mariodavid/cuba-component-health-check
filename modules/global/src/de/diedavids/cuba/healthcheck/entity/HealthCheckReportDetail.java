@@ -20,9 +20,6 @@ public class HealthCheckReportDetail extends StandardEntity {
     @Column(name = "RESULT_", nullable = false)
     protected String result;
 
-    @Column(name = "CATEGORY")
-    protected String category;
-
     @Column(name = "MESSAGE")
     protected String message;
 
@@ -37,6 +34,7 @@ public class HealthCheckReportDetail extends StandardEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CONFIGURATION_ID")
     protected HealthCheckConfiguration configuration;
+
 
     public void setConfiguration(HealthCheckConfiguration configuration) {
         this.configuration = configuration;
@@ -64,14 +62,6 @@ public class HealthCheckReportDetail extends StandardEntity {
         return message;
     }
 
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getCategory() {
-        return category;
-    }
 
 
     public void setHealthCheckReport(HealthCheckReport healthCheckReport) {

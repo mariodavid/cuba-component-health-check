@@ -13,27 +13,27 @@ public abstract class AbstractHealthCheck implements HealthCheck {
 
 
     protected HealthCheckReportDetail success(String message) {
-        return healtCheckReportDetailFactory.success(getConfiguration(), getCategory(), message);
+        return healtCheckReportDetailFactory.success(getConfiguration(), message);
     }
 
     protected HealthCheckReportDetail success(String message, String detailedMessage) {
-        return healtCheckReportDetailFactory.success(getConfiguration(),getCategory(), message, detailedMessage);
+        return healtCheckReportDetailFactory.success(getConfiguration(),message, detailedMessage);
     }
 
     protected HealthCheckReportDetail warning(String message) {
-        return healtCheckReportDetailFactory.warning(getConfiguration(), getCategory(), message);
+        return healtCheckReportDetailFactory.warning(getConfiguration(), message);
     }
 
     protected HealthCheckReportDetail warning(String message, String detailedMessage) {
-        return healtCheckReportDetailFactory.warning(getConfiguration(), getCategory(), message, detailedMessage);
+        return healtCheckReportDetailFactory.warning(getConfiguration(), message, detailedMessage);
     }
 
     protected HealthCheckReportDetail error(String message) {
-        return healtCheckReportDetailFactory.error(getConfiguration(), getCategory(), message);
+        return healtCheckReportDetailFactory.error(getConfiguration(), message);
     }
 
     protected HealthCheckReportDetail error(String message, String detailedMessage) {
-        return healtCheckReportDetailFactory.error(getConfiguration(), getCategory(), message, detailedMessage);
+        return healtCheckReportDetailFactory.error(getConfiguration(), message, detailedMessage);
     }
 
 }

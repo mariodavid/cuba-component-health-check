@@ -8,7 +8,7 @@
     <dsContext>
         <datasource id="healthCheckConfigurationDs"
                     class="de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration"
-                    view="_local"/>
+                    view="customHealthCheckConfiguration-view"/>
     </dsContext>
     <dialogMode height="600"
                 width="800"/>
@@ -18,14 +18,19 @@
                     datasource="healthCheckConfigurationDs">
             <column width="250px">
                 <field property="name"/>
+                <field property="category"/>
+            </column>
+
+            <column width="250px">
                 <field property="active"/>
             </column>
         </fieldGroup>
         <tabSheet width="100%" id="descriptionTabSheet">
             <tab id="scriptTab" caption="msg://script" margin="true">
-                <textArea id="scriptTextArea"
+                <sourceCodeEditor id="scriptTextArea"
                           width="100%"
                           height="100%"
+                          mode="Groovy"
                           datasource="healthCheckConfigurationDs"
                           property="script"/>
 

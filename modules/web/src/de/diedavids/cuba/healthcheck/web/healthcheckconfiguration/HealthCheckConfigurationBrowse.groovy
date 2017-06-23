@@ -4,32 +4,38 @@ import com.haulmont.cuba.core.global.Metadata
 import com.haulmont.cuba.gui.WindowManager
 import com.haulmont.cuba.gui.components.AbstractLookup
 import com.haulmont.cuba.gui.components.Table
-import com.haulmont.cuba.gui.components.actions.CreateAction
+import com.haulmont.cuba.gui.components.Window
+import com.haulmont.cuba.gui.data.GroupDatasource
 import de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration
-import de.diedavids.cuba.healthcheck.entity.HealthCheckType
 
 import javax.inject.Inject
 
 class HealthCheckConfigurationBrowse extends AbstractLookup {
 
     @Inject
+    GroupDatasource<HealthCheckConfiguration, UUID> healthCheckConfigurationsDs
+    @Inject
     Table<HealthCheckConfiguration> healthCheckConfigurationsTable
 
     @Inject
     Metadata metadata
 
-    @Override
-    void init(Map<String, Object> params) {
-        super.init(params)
-
-//        CreateAction createAction = healthCheckConfigurationsTable.getAction('create')
-//        createAction.windowId = 'ddchc$CustomHealthCheckConfiguration.edit'
+    void create() {
+        def configuration = metadata.create(CustomHealthCheckConfiguration)
+        def editor = openEditor(configuration, WindowManager.OpenType.THIS_TAB)
+        editor.addCloseWithCommitListener(new DatasourceRefresher())
     }
 
-    public void createCustom() {
+    void edit() {
+        def editor = openEditor(healthCheckConfigurationsTable.singleSelected, WindowManager.OpenType.THIS_TAB)
+        editor.addCloseWithCommitListener(new DatasourceRefresher())
+    }
 
-        def configuration = metadata.create(CustomHealthCheckConfiguration)
-        openEditor(configuration, WindowManager.OpenType.THIS_TAB)
+    class DatasourceRefresher implements Window.CloseWithCommitListener {
+        @Override
+        void windowClosedWithCommitAction() {
+            healthCheckConfigurationsDs.refresh()
+        }
     }
 }

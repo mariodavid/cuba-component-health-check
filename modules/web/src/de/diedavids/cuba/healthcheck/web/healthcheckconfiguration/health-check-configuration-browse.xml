@@ -8,7 +8,7 @@
     <dsContext>
         <groupDatasource id="healthCheckConfigurationsDs"
                          class="de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration"
-                         view="_local">
+                         view="healthCheckConfiguration-view">
             <query>
                 <![CDATA[select e from ddchc$HealthCheckConfiguration e]]>
             </query>
@@ -26,11 +26,20 @@
         <groupTable id="healthCheckConfigurationsTable"
                     width="100%">
             <actions>
-                <action id="create" invoke="createCustom"/>
-                <action id="edit"/>
+                <action id="create"
+                        caption="mainMsg://actions.Create"
+                        icon="icons/add.png"
+                        invoke="create"/>
+                <action id="edit"
+                        caption="mainMsg://actions.Edit"
+                        icon="icons/edit.png"
+                        invoke="edit"/>
                 <action id="remove"/>
             </actions>
             <columns>
+                <group>
+                    <column id="category"/>
+                </group>
                 <column id="name"/>
                 <column id="type"/>
                 <column id="active"/>
