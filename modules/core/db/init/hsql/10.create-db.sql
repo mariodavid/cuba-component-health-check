@@ -27,7 +27,6 @@ create table DDCHC_HEALTH_CHECK_REPORT_DETAIL (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    NAME varchar(255) not null,
     RESULT_ varchar(50) not null,
     CATEGORY varchar(255),
     MESSAGE varchar(255),
@@ -52,6 +51,8 @@ create table DDCHC_HEALTH_CHECK_CONFIGURATION (
     --
     TYPE_ varchar(50) not null,
     ACTIVE boolean,
+    NAME varchar(255),
+    CODE varchar(255),
     DESCRIPTION varchar(4000),
     SOLUTION_INFORMATION varchar(4000),
     HEALTH_CHECK_CLASS varchar(255),

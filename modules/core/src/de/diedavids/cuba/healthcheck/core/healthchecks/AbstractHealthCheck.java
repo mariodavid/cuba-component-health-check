@@ -9,37 +9,31 @@ import javax.inject.Inject;
 public abstract class AbstractHealthCheck implements HealthCheck {
 
     @Inject
-    HealtCheckReportDetailFactory resultFactory;
+    protected HealtCheckReportDetailFactory healtCheckReportDetailFactory;
 
-
-    @Override
-    public String getName() {
-        return getClass().getSimpleName();
-    }
 
     protected HealthCheckReportDetail success(String message) {
-        return resultFactory.success(getName(), getCategory(), message);
+        return healtCheckReportDetailFactory.success(getConfiguration(), getCategory(), message);
     }
 
     protected HealthCheckReportDetail success(String message, String detailedMessage) {
-        return resultFactory.success(getName(), getCategory(), message, detailedMessage);
+        return healtCheckReportDetailFactory.success(getConfiguration(),getCategory(), message, detailedMessage);
     }
 
     protected HealthCheckReportDetail warning(String message) {
-        return resultFactory.warning(getName(), getCategory(), message);
+        return healtCheckReportDetailFactory.warning(getConfiguration(), getCategory(), message);
     }
 
     protected HealthCheckReportDetail warning(String message, String detailedMessage) {
-        return resultFactory.warning(getName(), getCategory(), message, detailedMessage);
+        return healtCheckReportDetailFactory.warning(getConfiguration(), getCategory(), message, detailedMessage);
     }
 
     protected HealthCheckReportDetail error(String message) {
-        return resultFactory.error(getName(), getCategory(), message);
+        return healtCheckReportDetailFactory.error(getConfiguration(), getCategory(), message);
     }
 
     protected HealthCheckReportDetail error(String message, String detailedMessage) {
-        return resultFactory.error(getName(), getCategory(), message, detailedMessage);
+        return healtCheckReportDetailFactory.error(getConfiguration(), getCategory(), message, detailedMessage);
     }
-
 
 }

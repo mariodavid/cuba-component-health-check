@@ -77,7 +77,6 @@
                         <formatter class="de.diedavids.cuba.healthcheck.web.CategoryLocalNameFormatter"/>
                     </column>
                 </group>
-                <column id="name"/>
                 <column id="result"/>
                 <column id="message"/>
             </columns>

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * - open office / libre office installed for report addon
  * - internet connectivity through ping
  */
-public abstract class ShellExecutionHealthCheck extends AbstractHealthCheck {
+public abstract class ShellExecutionHealthCheck extends DefaultHealthCheck {
 
     private Logger log = LoggerFactory.getLogger(ShellExecutionHealthCheck.class);
 

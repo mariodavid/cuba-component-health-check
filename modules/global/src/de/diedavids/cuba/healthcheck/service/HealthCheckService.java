@@ -14,5 +14,4 @@ public interface HealthCheckService {
     HealthCheckReport getLatestHealthCheckReport();
 
     Map<String, HealthCheck> getProgrammaticallyDefinedChecks();
-    Map<String, String> getProgrammaticallyDefinedChecksMap();
 }

@@ -3,7 +3,9 @@ package de.diedavids.cuba.healthcheck.service
 import com.haulmont.cuba.core.global.*
 import de.diedavids.cuba.healthcheck.HealthCheck
 import de.diedavids.cuba.healthcheck.core.HealthCheckConfigurationLoader
+import de.diedavids.cuba.healthcheck.core.healthchecks.CustomScriptHealthCheck
 import de.diedavids.cuba.healthcheck.data.SimpleDataLoader
+import de.diedavids.cuba.healthcheck.entity.HealtCheckReportDetailFactory
 import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
@@ -32,14 +34,20 @@ class HealthCheckServiceBean implements HealthCheckService {
     @Inject
     TimeSource timeSource
 
+    @Inject
+    Scripting scripting
+
+    @Inject
+    HealtCheckReportDetailFactory healtCheckReportDetailFactory
+
     @Override
     HealthCheckReport runHealthChecks() {
 
-        List<HealthCheckConfigurationLoader.HealthCheckInfo> healthCheckInfos = healthCheckConfiguration.healthChecks
-
+//        List<HealthCheckConfigurationLoader.HealthCheckInfo> healthCheckInfos = healthCheckConfiguration.healthChecks
 
         def run = createHealthCheckRun()
         runChecks(run, programmaticallyDefinedChecks)
+        runChecks(run, customDefinedChecks)
         calculateHealthCheckResult(run)
         saveHealthCheckRun(run)
 
@@ -55,7 +63,6 @@ class HealthCheckServiceBean implements HealthCheckService {
                 LoadContext.createQuery('select e from ddchc$HealthCheckReport e order by e.executedAt desc').setMaxResults(1)
 
         )
-
         dataManager.load(loadContext)
     }
 
@@ -65,7 +72,7 @@ class HealthCheckServiceBean implements HealthCheckService {
         List<HealthCheckReportDetail> results = []
 
         healthChecks.each { String name, HealthCheck healthCheck ->
-            if (isCheckActive(name)) {
+            if (isCheckActive(healthCheck)) {
                 HealthCheckReportDetail result
                 try {
                     result = healthCheck.check()
@@ -74,7 +81,9 @@ class HealthCheckServiceBean implements HealthCheckService {
                     result = createExceptionalRunResult(e, healthCheck)
                 }
                 result.healthCheckReport = run
-                result.configuration = getHealthCheckConfigurationForHealthCheck(name)
+                if (!result.configuration) {
+                    result.configuration = healthCheck.configuration
+                }
                 results << result
             }
         }
@@ -87,19 +96,8 @@ class HealthCheckServiceBean implements HealthCheckService {
         run
     }
 
-    private HealthCheckConfiguration getHealthCheckConfigurationForHealthCheck(String name) {
-        simpleDataLoader.loadByProperty(HealthCheckConfiguration, 'healthCheckClass', name)
-    }
-
-    private boolean isCheckActive(String name) {
-
-        HealthCheckConfiguration item = simpleDataLoader.loadByProperty(HealthCheckConfiguration, 'healthCheckClass', name)
-
-        if (item) {
-            return item.active
-        } else {
-            return false
-        }
+    private boolean isCheckActive(HealthCheck healthCheck) {
+            return healthCheck?.configuration?.active
     }
 
     private void calculateHealthCheckResult(HealthCheckReport run) {
@@ -110,9 +108,23 @@ class HealthCheckServiceBean implements HealthCheckService {
         AppBeans.getAll(HealthCheck)
     }
 
-    @Override
-    Map<String, String> getProgrammaticallyDefinedChecksMap() {
-        programmaticallyDefinedChecks.collectEntries { [(it.value.name): it.key] } as Map<String, String>
+    Map<String, HealthCheck> getCustomDefinedChecks() {
+        LoadContext loadContext = LoadContext.create(HealthCheckConfiguration)
+                .setQuery(LoadContext.createQuery('select e from ddchc$HealthCheckConfiguration e where e.type = @enum(de.diedavids.cuba.healthcheck.entity.HealthCheckType.CUSTOM)')
+        )
+
+        Collection<HealthCheckConfiguration> customHealthChecks = dataManager.loadList(loadContext)
+
+        customHealthChecks.collectEntries { HealthCheckConfiguration configuration ->
+            def check = new CustomScriptHealthCheck(
+                    scripting: scripting,
+                    healtCheckReportDetailFactory: healtCheckReportDetailFactory,
+                    configuration: configuration
+            )
+
+            [(configuration.id.toString()): check]
+        }
+
     }
 
     private HealthCheckReport createHealthCheckRun() {
@@ -124,7 +136,6 @@ class HealthCheckServiceBean implements HealthCheckService {
         result.result = HealthCheckResultType.ERROR
         result.message = e.message
         result.category = healthCheck.category
-        result.name = healthCheck.name
         result.detailedMessage = createDetailedMessageFromException(e)
         result
     }

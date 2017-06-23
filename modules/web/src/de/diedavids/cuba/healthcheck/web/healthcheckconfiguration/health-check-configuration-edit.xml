@@ -17,7 +17,8 @@
         <fieldGroup id="fieldGroup"
                     datasource="healthCheckConfigurationDs">
             <column width="250px">
-                <field property="healthCheckClass" custom="true"/>
+                <field property="name"/>
+                <field property="code"/>
             </column>
             <column width="250px">
                 <field property="active"/>
@@ -29,15 +30,16 @@
                           width="100%"
                           height="100%"
                           datasource="healthCheckConfigurationDs"
-                          property="description" />
+                          property="description"/>
 
             </tab>
             <tab id="scriptTab" caption="msg://script" margin="true">
-                <textArea id="scriptTextArea"
-                          width="100%"
-                          height="100%"
-                          datasource="healthCheckConfigurationDs"
-                          property="script" />
+                <sourceCodeEditor datasource="healthCheckConfigurationDs" property="script"
+                                  width="100%"
+                                  height="100%"
+                                  id="scriptSourceCodeEditor"
+                                  handleTabKey="true"
+                                  mode="Groovy"/>
 
             </tab>
             <tab id="solutionInformationTab" caption="msg://solutionInformation" margin="true">
@@ -45,7 +47,7 @@
                           width="100%"
                           height="100%"
                           datasource="healthCheckConfigurationDs"
-                          property="solutionInformation" />
+                          property="solutionInformation"/>
 
             </tab>
         </tabSheet>

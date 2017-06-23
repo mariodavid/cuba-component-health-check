@@ -14,7 +14,7 @@ public class PingBingHealthCheck extends ShellExecutionHealthCheck {
 
     @Override
     protected String getShellCommand() {
-        return "ping -c 4 www.bing.com";
+        return "ping -c 1 www.bing.com";
     }
 
     @Override
@@ -27,4 +27,8 @@ public class PingBingHealthCheck extends ShellExecutionHealthCheck {
         return warning("Could not ping bing, but doesn't really matter...");
     }
 
+    @Override
+    protected String getConfigurationCode() {
+        return "PingBingHealthCheck";
+    }
 }

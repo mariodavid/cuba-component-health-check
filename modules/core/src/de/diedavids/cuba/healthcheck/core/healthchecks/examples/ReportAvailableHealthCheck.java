@@ -15,4 +15,8 @@ public class ReportAvailableHealthCheck extends DatabaseEntityInstanceAvailableH
         return LoadContext.create(Role.class).setQuery(LoadContext.createQuery("select e from sec$Role e where e.name = :roleName").setParameter("roleName", MY_ROLE_NAME));
     }
 
+    @Override
+    protected String getConfigurationCode() {
+        return "ReportAvailableHealthCheck";
+    }
 }

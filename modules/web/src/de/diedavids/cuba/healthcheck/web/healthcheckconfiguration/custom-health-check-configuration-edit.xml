@@ -17,6 +17,8 @@
         <fieldGroup id="fieldGroup"
                     datasource="healthCheckConfigurationDs">
             <column width="250px">
+                <field property="name"/>
+                <field property="code"/>
                 <field property="active"/>
             </column>
         </fieldGroup>

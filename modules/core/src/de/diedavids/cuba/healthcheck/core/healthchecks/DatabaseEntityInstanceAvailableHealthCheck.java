@@ -18,7 +18,7 @@ import javax.inject.Inject;
  * - security groups or constraints
  * - bpm definitions
  */
-public abstract class DatabaseEntityInstanceAvailableHealthCheck<T extends Entity> extends AbstractHealthCheck {
+public abstract class DatabaseEntityInstanceAvailableHealthCheck<T extends Entity> extends DefaultHealthCheck {
 
     private Logger log = LoggerFactory.getLogger(DatabaseEntityInstanceAvailableHealthCheck.class);
 

@@ -28,6 +28,12 @@ public class HealthCheckConfiguration extends StandardEntity {
     @Column(name = "ACTIVE")
     protected Boolean active;
 
+    @Column(name = "NAME")
+    protected String name;
+
+    @Column(name = "CODE")
+    protected String code;
+
     @Column(name = "DESCRIPTION", length = 4000)
     protected String description;
 
@@ -40,6 +46,24 @@ public class HealthCheckConfiguration extends StandardEntity {
     @Lob
     @Column(name = "SCRIPT")
     protected String script;
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 
     public void setScript(String script) {
         this.script = script;

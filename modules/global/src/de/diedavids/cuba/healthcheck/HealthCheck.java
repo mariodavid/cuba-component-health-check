@@ -1,5 +1,6 @@
 package de.diedavids.cuba.healthcheck;
 
+import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration;
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail;
 
 /**
@@ -23,10 +24,6 @@ public interface HealthCheck {
      */
     String getCategory();
 
-    /**
-     * defines the name of the health check
-     * @return the name
-     */
-    String getName();
+    HealthCheckConfiguration getConfiguration();
 
 }

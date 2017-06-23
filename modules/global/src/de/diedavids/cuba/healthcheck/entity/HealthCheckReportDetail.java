@@ -1,23 +1,21 @@
 package de.diedavids.cuba.healthcheck.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.chile.core.annotations.NamePattern;
+import com.haulmont.cuba.core.entity.StandardEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@NamePattern("%s (%s)|name,result")
+@NamePattern(" (%s)|result")
 @Table(name = "DDCHC_HEALTH_CHECK_REPORT_DETAIL")
 @Entity(name = "ddchc$HealthCheckReportDetail")
 public class HealthCheckReportDetail extends StandardEntity {
     private static final long serialVersionUID = 4988447995454061628L;
-
-    @Column(name = "NAME", nullable = false)
-    protected String name;
 
     @Column(name = "RESULT_", nullable = false)
     protected String result;
@@ -84,14 +82,6 @@ public class HealthCheckReportDetail extends StandardEntity {
         return healthCheckReport;
     }
 
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public void setResult(HealthCheckResultType result) {
         this.result = result == null ? null : result.getId();
