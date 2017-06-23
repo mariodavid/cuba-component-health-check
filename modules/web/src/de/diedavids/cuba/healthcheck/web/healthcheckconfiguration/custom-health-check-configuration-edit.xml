@@ -7,7 +7,7 @@
         messagesPack="de.diedavids.cuba.healthcheck.web.healthcheckconfiguration">
     <dsContext>
         <datasource id="healthCheckConfigurationDs"
-                    class="de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration"
+                    class="de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration"
                     view="_local"/>
     </dsContext>
     <dialogMode height="600"
@@ -18,7 +18,6 @@
                     datasource="healthCheckConfigurationDs">
             <column width="250px">
                 <field property="name"/>
-                <field property="code"/>
                 <field property="active"/>
             </column>
         </fieldGroup>

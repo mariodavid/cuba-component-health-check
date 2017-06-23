@@ -26,7 +26,7 @@
         <groupTable id="healthCheckConfigurationsTable"
                     width="100%">
             <actions>
-                <action id="create"/>
+                <action id="create" invoke="createCustom"/>
                 <action id="edit"/>
                 <action id="remove"/>
             </actions>

@@ -12,7 +12,9 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Inheritance;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Lob;
+import javax.persistence.DiscriminatorValue;
 
+@DiscriminatorValue("GENERAL")
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamePattern("%s (%s)|healthCheckClass,active")

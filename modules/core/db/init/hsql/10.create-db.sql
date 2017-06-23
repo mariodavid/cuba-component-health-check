@@ -61,3 +61,12 @@ create table DDCHC_HEALTH_CHECK_CONFIGURATION (
     primary key (ID)
 )^
 -- end DDCHC_HEALTH_CHECK_CONFIGURATION
+-- begin DDCHC_CUSTOM_HEALTH_CHECK_CONFIGURATION
+create table DDCHC_CUSTOM_HEALTH_CHECK_CONFIGURATION (
+    ID varchar(36) not null,
+    --
+    COOL varchar(255),
+    --
+    primary key (ID)
+)^
+-- end DDCHC_CUSTOM_HEALTH_CHECK_CONFIGURATION
