@@ -18,7 +18,7 @@
         <fieldGroup id="fieldGroup" editable="false"
                     datasource="healthCheckReportDetailDs">
             <column width="250px">
-                <field property="name" editable="false"/>
+                <field property="configuration.name" editable="false"/>
                 <field property="category" editable="false">
                     <formatter class="de.diedavids.cuba.healthcheck.web.CategoryLocalNameFormatter"/>
                 </field>

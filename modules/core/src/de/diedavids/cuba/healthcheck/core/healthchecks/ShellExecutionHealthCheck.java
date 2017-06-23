@@ -23,6 +23,7 @@ public abstract class ShellExecutionHealthCheck extends DefaultHealthCheck {
             Process p = Runtime.getRuntime().exec(getShellCommand());
             p.waitFor();
 
+
             if (p.exitValue() == 0) {
                 return handleSuccessfulExecution(p);
             } else {
