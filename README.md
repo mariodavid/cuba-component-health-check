@@ -25,9 +25,73 @@ After that you can go into your project and add the dependency to you project th
 
 ## Define custom health checks
 
+
 ### Development time health checks
 
+For a lot of health checks you already know at development time what you want to check. 
+These checks should be defined just as regular Java / Groovy class within your CUBA application.
+ 
+To define custom health checks, you have to create a class that extends [DefaultHealthCheck](https://github.com/mariodavid/cuba-component-health-check/blob/master/modules/core/src/de/diedavids/cuba/healthcheck/core/healthchecks/DefaultHealthCheck.java)
+in the core module of your application.
+
+
+````
+@Component
+public class WeatherOfficeHealthCheck extends DefaultHealthCheck {
+
+
+    @Inject
+    WeatherOfficeService weatherOfficeService;
+    
+    @Override
+    public HealthCheckReportDetail check() {
+    
+        if (weatherOfficeService.isHot()) {
+            return error("get outta here, catch a drink and keep calm");
+        }
+        else if(weatherOfficeService.isWarm()) {
+            return warning("You can work on, but make sure you are ready to party");
+        }
+        else {
+            return success("Nothing to see here. Get a coffee...")
+        }
+    }
+
+    @Override
+    protected String getConfigurationCode() {
+        return "weather-office-health-check-code";
+    }
+}
+````
+
+In the `check()` method you define the logic that should be checked. The return value is a `HealthCheckReportDetail` object that defines the outcome of the check.
+To not deal with the return type directly, you can use the helper methods:
+
+
+    success(String message)
+    success(String message, String detailedMessage)
+    warning(String message)
+    warning(String message, String detailedMessage)
+    error(String message)
+    error(String message, String detailedMessage)
+
+
+The method `getConfigurationCode()` returns the `code` of the entity [HealthCheckConfiguration](https://github.com/mariodavid/cuba-component-health-check/blob/master/modules/global/src/de/diedavids/cuba/healthcheck/entity/HealthCheckConfiguration.java) that corresponds with this health check.
+
+*Note: Your health check class has to be a Spring bean (`@Component`) in order to get picked up by the check-runtime.*
+
+There are a few subclasses already available for you that will make defining a health check a little easier:
+
+* `DatabaseEntityInstanceAvailableHealthCheck` - checks for a given instance of an entity to exist in the db
+* `ShellExecutionHealthCheck` - executes a shell command and verfies its outcome
+
+
 ### Runtime health checks
+
+Oftentimes there is a need to define health checks at runtime. For this use case you can create a `CustomHealthCheckConfiguration` that has a script attached.
+To create a runtime health check, go to `Administration > Health Check > Health Check Configurations`.
+
+![Screenshot runtime health checks](https://github.com/mariodavid/cuba-component-health-check/blob/master/img/custom-health-check-configuration.png)
 
 
 ## Inital checks
