@@ -23,8 +23,32 @@ After that you can go into your project and add the dependency to you project th
 
 ## Health check overview
 
-## Define custom health checks
+### Running health checks
 
+There are two options to run the health checks: manually or on a scheduled basis. 
+
+To run the health check manually through the UI, you can use the button "rerun health check" (`Administration` >  `Health Check` > `Latest health check`). 
+This option is useful when you trying to fix an issue reported by the health check to see if you really resolved it.
+  
+The second option is that the health checks are run as a scheduled task. This is the preferred way, because the health check
+is meant to be executeed proactively a self-test that will lead to better uptime due to fast and easy access to problems.
+
+In this case, you create a scheduled task through the mechanism of [CUBA scheduled tasks](https://doc.cuba-platform.com/manual-6.5/scheduled_tasks_cuba.html).
+
+The bean executing the health checks: `ddchc_HealthCheckService` with the method `runHealthChecks`. 
+
+
+![Screenshot creating a health check scheduled task](https://github.com/mariodavid/cuba-component-health-check/blob/master/img/health-check-scheduled-task.png)
+
+How often you let the checks run is up to you and is highly dependent of the type of checks you are planning to implement. 
+Generally the idea is to proactively execute these checks and get immediate feedback, if something is not working out,
+so more often checks should be preferred.
+  
+
+
+
+
+## Defining health checks
 
 ### Development time health checks
 
@@ -35,7 +59,7 @@ To define custom health checks, you have to create a class that extends [Default
 in the core module of your application.
 
 
-````
+````java
 @Component
 public class WeatherOfficeHealthCheck extends DefaultHealthCheck {
 
@@ -67,14 +91,14 @@ public class WeatherOfficeHealthCheck extends DefaultHealthCheck {
 In the `check()` method you define the logic that should be checked. The return value is a `HealthCheckReportDetail` object that defines the outcome of the check.
 To not deal with the return type directly, you can use the helper methods:
 
-
-    success(String message)
-    success(String message, String detailedMessage)
-    warning(String message)
-    warning(String message, String detailedMessage)
-    error(String message)
-    error(String message, String detailedMessage)
-
+````java
+success(String message)
+success(String message, String detailedMessage)
+warning(String message)
+warning(String message, String detailedMessage)
+error(String message)
+error(String message, String detailedMessage)
+````
 
 The method `getConfigurationCode()` returns the `code` of the entity [HealthCheckConfiguration](https://github.com/mariodavid/cuba-component-health-check/blob/master/modules/global/src/de/diedavids/cuba/healthcheck/entity/HealthCheckConfiguration.java) that corresponds with this health check.
 
