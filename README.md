@@ -100,14 +100,32 @@ error(String message)
 error(String message, String detailedMessage)
 ````
 
-The method `getConfigurationCode()` returns the `code` of the entity [HealthCheckConfiguration](https://github.com/mariodavid/cuba-component-health-check/blob/master/modules/global/src/de/diedavids/cuba/healthcheck/entity/HealthCheckConfiguration.java) that corresponds with this health check.
-
 *Note: Your health check class has to be a Spring bean (`@Component`) in order to get picked up by the check-runtime.*
+
+The method `getConfigurationCode()` returns the `code` of the entity [HealthCheckConfiguration](https://github.com/mariodavid/cuba-component-health-check/blob/master/modules/global/src/de/diedavids/cuba/healthcheck/entity/HealthCheckConfiguration.java) that corresponds with this health check.
 
 There are a few subclasses already available for you that will make defining a health check a little easier:
 
 * `DatabaseEntityInstanceAvailableHealthCheck` - checks for a given instance of an entity to exist in the db
 * `ShellExecutionHealthCheck` - executes a shell command and verfies its outcome
+
+
+
+### Health check configurations
+
+For every health check in the system, there has to be an database entry in the entity [HealthCheckConfiguration](https://github.com/mariodavid/cuba-component-health-check/blob/master/modules/global/src/de/diedavids/cuba/healthcheck/entity/HealthCheckConfiguration.java).
+A HealthCheckConfiguration defines certain aspects of the health check, that are not expressed in the code, because they can be changed by the user:
+
+* `name` - the name is the visual representation of the health check in the UI
+* `code` - the code that glues the HealthCheck class to the configuration instance
+* `description` - describes the health check in more detail. Will be displayed to the administrator in the health check report.
+* `category` - health checks can be grouped into different categories in order to dispay them in the UI accordingly or to run just a subset of the checks 
+* `active` - a health check can be activated / deactivated at runtime
+* `solution information` - information for the administrator on how to resolve the issue in case the check was not successful
+
+> When you create a health check, you might want to create a corresponding database entry as well at development time. 
+> To do so, you can start the application in your development environment and create a database entry via the entity inspector (`Administration` > `Entity inspector` > `Health Check Configuration (ddchc$HealthCheckConfiguration)`)
+> To transport these database entries alongside with the application, you can find more information [here](https://www.road-to-cuba-and-beyond.com/test-and-seed-data/)
 
 
 ### Runtime health checks
@@ -119,3 +137,10 @@ To create a runtime health check, go to `Administration > Health Check > Health 
 
 
 ## Inital checks
+Besides recurring checks that have to be executed over and over again to make sure the system is still in a good shape, 
+there is an additional type of checks: *initial checks*.
+
+The purpose of these checks is to guide the administrator through the initial installation and configuration of the system.
+
+Those checks have to be checks that have been created at development time. The corresponding health check configuration database entry
+should set the boolean flag `initial` to true.
