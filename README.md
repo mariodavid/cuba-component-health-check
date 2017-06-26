@@ -23,6 +23,13 @@ After that you can go into your project and add the dependency to you project th
 
 ## Health check overview
 
+You can see the result of the latest health check from `Administration` > `Health Check` > `Latest health check`.
+
+Additionally you get an indicator on the upper right of the application, that will display the result of the latest health check.
+
+![Screenshot health check overview](https://github.com/mariodavid/cuba-component-health-check/blob/master/img/health-check-overview.png)
+
+
 ### Running health checks
 
 There are two options to run the health checks: manually or on a scheduled basis. 
@@ -43,12 +50,14 @@ The bean executing the health checks: `ddchc_HealthCheckService` with the method
 How often you let the checks run is up to you and is highly dependent of the type of checks you are planning to implement. 
 Generally the idea is to proactively execute these checks and get immediate feedback, if something is not working out,
 so more often checks should be preferred.
-  
-
-
 
 
 ## Defining health checks
+
+In order to use the system, the developer and or the administrator have to create health checks that will 
+execute some logic to determine a particular aspect of the system.
+
+Creating health checks can be done in two ways: at development time and at runtime.
 
 ### Development time health checks
 
@@ -125,7 +134,7 @@ A HealthCheckConfiguration defines certain aspects of the health check, that are
 
 > When you create a health check, you might want to create a corresponding database entry as well at development time. 
 > To do so, you can start the application in your development environment and create a database entry via the entity inspector (`Administration` > `Entity inspector` > `Health Check Configuration (ddchc$HealthCheckConfiguration)`)
-> To transport these database entries alongside with the application, you can find more information [here](https://www.road-to-cuba-and-beyond.com/test-and-seed-data/)
+> To transport these database entries alongside with the application, you can find more information [here](https://www.road-to-cuba-and-beyond.com/test-and-seed-data/).
 
 
 ### Runtime health checks

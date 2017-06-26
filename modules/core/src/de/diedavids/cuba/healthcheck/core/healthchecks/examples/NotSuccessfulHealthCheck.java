@@ -9,7 +9,7 @@ public class NotSuccessfulHealthCheck extends DefaultHealthCheck {
 
     @Override
     public HealthCheckReportDetail check() {
-        throw new RuntimeException("that was nothing");
+        throw new RuntimeException("that didn't work out");
     }
 
     @Override
