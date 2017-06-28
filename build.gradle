@@ -30,11 +30,21 @@ apply(plugin: 'cuba')
 cuba {
     artifact {
         group = 'de.diedavids.cuba.healthcheck'
-        version = '0.1'
+        version = '0.1.0'
         isSnapshot = true
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
+    }
+    uploadRepository {
+        if (cuba.artifact.isSnapshot) {
+            url = System.env.UPLOAD_REPOSITORY_SNAPSHOT
+        } else {
+            url = System.env.UPLOAD_REPOSITORY_RELEASE
+        }
+
+        user = System.env.UPLOAD_REPOSITORY_USERNAME
+        password = System.env.UPLOAD_REPOSITORY_PASSWORD
     }
     ide {
          
