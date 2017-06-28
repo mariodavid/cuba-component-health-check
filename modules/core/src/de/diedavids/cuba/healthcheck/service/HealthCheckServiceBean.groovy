@@ -114,7 +114,7 @@ class HealthCheckServiceBean implements HealthCheckService {
     }
 
     private boolean isCheckActive(HealthCheck healthCheck) {
-            return healthCheck?.configuration?.active
+        healthCheck?.configuration?.active
     }
 
     private void calculateHealthCheckResult(HealthCheckReport run) {
@@ -177,7 +177,5 @@ class HealthCheckServiceBean implements HealthCheckService {
         }
 
         dataManager.commit(commitContext)
-
-
     }
 }

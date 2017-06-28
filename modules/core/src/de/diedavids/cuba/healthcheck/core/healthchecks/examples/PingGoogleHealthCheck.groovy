@@ -9,21 +9,21 @@ class PingGoogleHealthCheck extends ShellExecutionHealthCheck {
 
     @Override
     protected String getShellCommand() {
-        "ping -c 1 www.google.com"
+        'ping -c 1 www.google.com'
     }
 
     @Override
     protected HealthCheckReportDetail handleErrorExecution(Process shellCommandProcess) {
-        error("Couldn't ping www.google.com")
+        error('Couldn\'t ping www.google.com')
     }
 
     @Override
     protected HealthCheckReportDetail handleSuccessfulExecution(Process shellCommandProcess) {
-        success("ping google successful")
+        success('ping google successful')
     }
 
     @Override
     protected String getConfigurationCode() {
-        return "PingGoogleHealthCheck"
+        return 'PingGoogleHealthCheck'
     }
 }

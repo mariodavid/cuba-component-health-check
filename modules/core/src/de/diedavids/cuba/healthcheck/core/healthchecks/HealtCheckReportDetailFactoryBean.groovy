@@ -1,22 +1,20 @@
 package de.diedavids.cuba.healthcheck.core.healthchecks
 
-import com.haulmont.cuba.core.global.DataManager
 import com.haulmont.cuba.core.global.Metadata
 import de.diedavids.cuba.healthcheck.data.SimpleDataLoader
 import de.diedavids.cuba.healthcheck.entity.HealtCheckReportDetailFactory
-import de.diedavids.cuba.healthcheck.entity.HealthCheckCategory
-import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration;
-import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType;
+import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
+import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import org.springframework.stereotype.Component
 
-import javax.inject.Inject;
+import javax.inject.Inject
 
 @Component(HealtCheckReportDetailFactory.NAME)
 class HealtCheckReportDetailFactoryBean implements HealtCheckReportDetailFactory {
 
     @Inject
-    Metadata metadata;
+    Metadata metadata
 
     @Inject
     SimpleDataLoader simpleDataLoader

@@ -9,12 +9,16 @@ import org.codehaus.groovy.runtime.MethodClosure
 
 class CustomScriptHealthCheck extends AbstractHealthCheck {
 
+    public static final String ERROR_METHOD_NAME = 'error'
+    public static final String WARNING_METHOD_NAME = 'warning'
+    public static final String SUCCESS_METHOD_NAME = 'success'
     CustomHealthCheckConfiguration configuration
+
     Scripting scripting
 
     @Override
     HealthCheckReportDetail check() {
-        def result = healtCheckReportDetailFactory.error(configuration, "", "")
+        def result = healtCheckReportDetailFactory.error(configuration, '', '')
 
         Binding binding = initBinding()
         try {
@@ -32,14 +36,14 @@ class CustomScriptHealthCheck extends AbstractHealthCheck {
 
         result.configuration = configuration
 
-        return result
+        result
     }
 
     protected Binding initBinding() {
         def binding = new Binding()
-        binding.setProperty("error", new MethodClosure(this, "error"))
-        binding.setProperty("warning", new MethodClosure(this, "warning"))
-        binding.setProperty("success", new MethodClosure(this, "success"))
+        binding.setProperty(ERROR_METHOD_NAME, new MethodClosure(this, ERROR_METHOD_NAME))
+        binding.setProperty(WARNING_METHOD_NAME, new MethodClosure(this, WARNING_METHOD_NAME))
+        binding.setProperty(SUCCESS_METHOD_NAME, new MethodClosure(this, SUCCESS_METHOD_NAME))
         binding
     }
 
