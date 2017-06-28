@@ -2,16 +2,9 @@ package de.diedavids.cuba.healthcheck.service
 
 import com.haulmont.cuba.core.global.*
 import de.diedavids.cuba.healthcheck.HealthCheck
-import de.diedavids.cuba.healthcheck.core.HealthCheckConfigurationLoader
 import de.diedavids.cuba.healthcheck.core.healthchecks.CustomScriptHealthCheck
 import de.diedavids.cuba.healthcheck.data.SimpleDataLoader
-import de.diedavids.cuba.healthcheck.entity.CustomHealthCheckConfiguration
-import de.diedavids.cuba.healthcheck.entity.HealtCheckReportDetailFactory
-import de.diedavids.cuba.healthcheck.entity.HealthCheckCategory
-import de.diedavids.cuba.healthcheck.entity.HealthCheckConfiguration
-import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
-import de.diedavids.cuba.healthcheck.entity.HealthCheckReportDetail
-import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
+import de.diedavids.cuba.healthcheck.entity.*
 import org.apache.commons.lang.exception.ExceptionUtils
 import org.springframework.stereotype.Service
 
@@ -19,10 +12,6 @@ import javax.inject.Inject
 
 @Service(HealthCheckService.NAME)
 class HealthCheckServiceBean implements HealthCheckService {
-
-
-    @Inject
-    HealthCheckConfigurationLoader healthCheckConfiguration
 
     @Inject
     DataManager dataManager
@@ -45,7 +34,6 @@ class HealthCheckServiceBean implements HealthCheckService {
     @Override
     HealthCheckReport runHealthChecks() {
 
-//        List<HealthCheckConfigurationLoader.HealthCheckInfo> healthCheckInfos = healthCheckConfiguration.healthChecks
 
         def run = createHealthCheckRun()
         runChecks(run, programmaticallyDefinedChecks)
@@ -69,20 +57,30 @@ class HealthCheckServiceBean implements HealthCheckService {
     }
 
     @Override
-    boolean hasApplicationSuccessfulInitialCheck() {
+    boolean isInitialSetupScreenNecessary() {
+        HealthCheckReport item = hasApplicationSuccessfulInitialCheckReport()
+        item ? false : hasApplicationInitialChecks()
+    }
+
+    protected HealthCheckReport hasApplicationSuccessfulInitialCheckReport() {
         LoadContext loadContext = LoadContext.create(HealthCheckReport)
                 .setQuery(
                 LoadContext.createQuery('select e from ddchc$HealthCheckReport e where e.initialCheck = true and e.result = @enum(de.diedavids.cuba.healthcheck.entity.HealthCheckResultType.SUCCESS) order by e.executedAt desc').setMaxResults(1)
 
         )
-        def item = dataManager.load(loadContext)
+        dataManager.load(loadContext)
+    }
 
-        if (item) {
-            return true
-        }
-        else {
-            return false
-        }
+
+    boolean hasApplicationInitialChecks() {
+        LoadContext loadContext = LoadContext.create(HealthCheckReport)
+                .setQuery(
+                LoadContext.createQuery('select e from ddchc$HealthCheckConfiguration e where e.initial = true')
+
+        )
+        def initialCheckCount = dataManager.getCount(loadContext)
+
+        initialCheckCount != 0
     }
 
     HealthCheckReport runChecks(HealthCheckReport run, Map<String, HealthCheck> healthChecks) {

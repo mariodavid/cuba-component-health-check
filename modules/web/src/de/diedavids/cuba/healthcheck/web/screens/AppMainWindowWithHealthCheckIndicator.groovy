@@ -34,15 +34,14 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
     }
 
     protected void initInitialCheckWindow() {
-        if (!healthCheckService.hasApplicationSuccessfulInitialCheck()) {
-
+        if (healthCheckService.initialSetupScreenNecessary) {
             openWindow('ddchc$InitialCheck', WindowManager.OpenType.DIALOG)
         }
     }
     protected void initLatestHealthCheckBtn() {
         if (security.isEntityOpPermitted(HealthCheckReport, EntityOp.READ)) {
 
-            HealthCheckReport healthCheckReport = healthCheckService.getLatestHealthCheckReport()
+            HealthCheckReport healthCheckReport = healthCheckService.latestHealthCheckReport
 
             if (healthCheckReport) {
                 healthCheckStatusBtn.visible = security.isEntityOpPermitted(HealthCheckReport, EntityOp.READ)
