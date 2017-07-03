@@ -42,7 +42,7 @@
                   ext="zip"
                   name="health-check-web"/>
         <artifact configuration="themes"
-                  name="web-themes"/>
+                  name="health-check-web-themes"/>
         <property name="cuba.springContextConfig"
                   value="+de/diedavids/cuba/healthcheck/web-spring.xml"/>
         <property name="cuba.dispatcherSpringContextConfig"
