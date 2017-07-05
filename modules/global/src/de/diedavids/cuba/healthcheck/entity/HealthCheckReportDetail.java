@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @NamePattern(" (%s)|result")
-@Table(name = "DDCHC_HEALTH_CHECK_REPORT_DETAIL")
+@Table(name = "DDCHC_HC_REPORT_DETAIL")
 @Entity(name = "ddchc$HealthCheckReportDetail")
 public class HealthCheckReportDetail extends StandardEntity {
     private static final long serialVersionUID = 4988447995454061628L;

@@ -1,5 +1,5 @@
--- begin DDCHC_HEALTH_CHECK_REPORT
-create table DDCHC_HEALTH_CHECK_REPORT (
+-- begin DDCHC_HC_REPORT
+create table DDCHC_HC_REPORT (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -16,9 +16,9 @@ create table DDCHC_HEALTH_CHECK_REPORT (
     --
     primary key (ID)
 )^
--- end DDCHC_HEALTH_CHECK_REPORT
--- begin DDCHC_HEALTH_CHECK_REPORT_DETAIL
-create table DDCHC_HEALTH_CHECK_REPORT_DETAIL (
+-- end DDCHC_HC_REPORT
+-- begin DDCHC_HC_REPORT_DETAIL
+create table DDCHC_HC_REPORT_DETAIL (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -36,9 +36,9 @@ create table DDCHC_HEALTH_CHECK_REPORT_DETAIL (
     --
     primary key (ID)
 )^
--- end DDCHC_HEALTH_CHECK_REPORT_DETAIL
--- begin DDCHC_HEALTH_CHECK_CONFIGURATION
-create table DDCHC_HEALTH_CHECK_CONFIGURATION (
+-- end DDCHC_HC_REPORT_DETAIL
+-- begin DDCHC_HC_CONFIGURATION
+create table DDCHC_HC_CONFIGURATION (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -63,10 +63,9 @@ create table DDCHC_HEALTH_CHECK_CONFIGURATION (
     --
     primary key (ID)
 )^
--- end DDCHC_HEALTH_CHECK_CONFIGURATION
-
--- begin DDCHC_HEALTH_CHECK_CATEGORY
-create table DDCHC_HEALTH_CHECK_CATEGORY (
+-- end DDCHC_HC_CONFIGURATION
+-- begin DDCHC_HC_CATEGORY
+create table DDCHC_HC_CATEGORY (
     ID varchar(36) not null,
     VERSION integer not null,
     CREATE_TS timestamp,
@@ -80,4 +79,4 @@ create table DDCHC_HEALTH_CHECK_CATEGORY (
     --
     primary key (ID)
 )^
--- end DDCHC_HEALTH_CHECK_CATEGORY
+-- end DDCHC_HC_CATEGORY

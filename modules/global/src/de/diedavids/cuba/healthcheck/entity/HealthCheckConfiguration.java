@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamePattern("%s (%s)|name,active")
-@Table(name = "DDCHC_HEALTH_CHECK_CONFIGURATION")
+@Table(name = "DDCHC_HC_CONFIGURATION")
 @Entity(name = "ddchc$HealthCheckConfiguration")
 public class HealthCheckConfiguration extends StandardEntity {
     private static final long serialVersionUID = 5113940016811422152L;

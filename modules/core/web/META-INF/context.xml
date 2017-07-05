@@ -1,14 +1,32 @@
 <Context>
     <!-- Database connection -->
-    <Resource driverClassName="org.hsqldb.jdbc.JDBCDriver"
+    <Resource driverClassName="org.postgresql.Driver"
               maxIdle="2"
               maxTotal="20"
               maxWaitMillis="5000"
               name="jdbc/CubaDS"
-              password=""
+              password="postgres"
               type="javax.sql.DataSource"
-              url="jdbc:hsqldb:hsql://localhost/ddchc3"
-              username="sa"/>
+              url="jdbc:postgresql://localhost/postgres"
+              username="postgres"/>
     <!-- Switch off session serialization -->
     <Manager pathname=""/>
+    <!--<Resource driverClassName="oracle.jdbc.OracleDriver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password="ddchc"
+          type="javax.sql.DataSource"
+          url="jdbc:oracle:thin:@//localhost/XE"
+          username="ddchc"/>-->
+    <!--<Resource driverClassName="org.hsqldb.jdbc.JDBCDriver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password=""
+          type="javax.sql.DataSource"
+          url="jdbc:hsqldb:hsql://localhost/ddchc3"
+          username="sa"/>-->
 </Context>

@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "DDCHC_HEALTH_CHECK_REPORT")
+@Table(name = "DDCHC_HC_REPORT")
 @Entity(name = "ddchc$HealthCheckReport")
 public class HealthCheckReport extends StandardEntity {
     private static final long serialVersionUID = 8485311513349157688L;
