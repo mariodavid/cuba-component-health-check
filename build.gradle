@@ -61,7 +61,7 @@ dependencies {
 }
 
 
-def postgres = 'org.postgresql:postgresql:9.4.1212'
+def hsql = 'org.hsqldb:hsqldb:2.2.9'
 
 allprojects {
     apply plugin: 'net.saliman.cobertura'
@@ -200,8 +200,8 @@ configure(coreModule) {
     dependencies {
         compile(globalModule)
         provided(servletApi)
-        jdbc(postgres)
-        testRuntime(postgres)
+        jdbc(hsql)
+        testRuntime(hsql)
 
     }
 
@@ -222,19 +222,19 @@ configure(coreModule) {
     }
 
     task createDb(dependsOn: assembleDbScripts, description: 'Creates local database', type: CubaDbCreation) {
-        dbms = 'postgres'
+        dbms = 'hsql'
         host = 'localhost'
-        dbName = 'postgres'
-        dbUser = 'postgres'
-        dbPassword = 'postgres'
+        dbName = 'ddchc3'
+        dbUser = 'sa'
+        dbPassword = ''
     }
 
     task updateDb(dependsOn: assembleDbScripts, description: 'Updates local database', type: CubaDbUpdate) {
-        dbms = 'postgres'
+        dbms = 'hsql'
         host = 'localhost'
-        dbName = 'postgres'
-        dbUser = 'postgres'
-        dbPassword = 'postgres'
+        dbName = 'ddchc3'
+        dbUser = 'sa'
+        dbPassword = ''
     }
 }
 
