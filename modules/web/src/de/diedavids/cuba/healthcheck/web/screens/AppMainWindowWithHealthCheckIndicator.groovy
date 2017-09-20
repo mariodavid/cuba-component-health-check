@@ -4,11 +4,12 @@ import com.haulmont.cuba.core.global.Security
 import com.haulmont.cuba.gui.WindowManager
 import com.haulmont.cuba.gui.components.Button
 import com.haulmont.cuba.gui.components.Component
+import com.haulmont.cuba.gui.components.Frame
 import com.haulmont.cuba.gui.components.actions.BaseAction
 import com.haulmont.cuba.security.entity.EntityOp
 import com.haulmont.cuba.web.app.mainwindow.AppMainWindow
-import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.entity.HealthCheckReport
+import de.diedavids.cuba.healthcheck.entity.HealthCheckResultType
 import de.diedavids.cuba.healthcheck.service.HealthCheckService
 
 import javax.inject.Inject
@@ -23,6 +24,7 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
 
     @Inject
     Security security
+    private String INITIAL_CHECK_SCREEN = 'ddchc$InitialCheck'
 
     @Override
     void ready() {
@@ -34,12 +36,17 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
     }
 
     protected void initInitialCheckWindow() {
-        if (healthCheckService.initialSetupScreenNecessary) {
-            openWindow('ddchc$InitialCheck', WindowManager.OpenType.DIALOG)
+        if (healthCheckReportReadable && initialCheckScreenAllowed) {
+            if (healthCheckService.initialSetupScreenNecessary) {
+                openWindow(INITIAL_CHECK_SCREEN, WindowManager.OpenType.DIALOG)
+            }
+        } else {
+            showNotification(formatMessage('initialCheckAdministratorRequired'), Frame.NotificationType.ERROR)
         }
     }
+
     protected void initLatestHealthCheckBtn() {
-        if (security.isEntityOpPermitted(HealthCheckReport, EntityOp.READ)) {
+        if (healthCheckReportReadable) {
 
             HealthCheckReport healthCheckReport = healthCheckService.latestHealthCheckReport
 
@@ -59,5 +66,13 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
                 }
             }
         }
+    }
+
+    protected boolean isHealthCheckReportReadable() {
+        security.isEntityOpPermitted(HealthCheckReport, EntityOp.READ)
+    }
+
+    protected boolean isInitialCheckScreenAllowed() {
+        security.isScreenPermitted(INITIAL_CHECK_SCREEN)
     }
 }
