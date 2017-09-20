@@ -1,5 +1,6 @@
 package de.diedavids.cuba.healthcheck.web.screens
 
+import com.haulmont.cuba.core.global.Messages
 import com.haulmont.cuba.core.global.Security
 import com.haulmont.cuba.gui.WindowManager
 import com.haulmont.cuba.gui.components.Button
@@ -24,6 +25,11 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
 
     @Inject
     Security security
+
+    @Inject
+    Messages messages
+
+
     private String INITIAL_CHECK_SCREEN = 'ddchc$InitialCheck'
 
     @Override
@@ -36,12 +42,16 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
     }
 
     protected void initInitialCheckWindow() {
-        if (healthCheckReportReadable && initialCheckScreenAllowed) {
-            if (healthCheckService.initialSetupScreenNecessary) {
+
+        if (healthCheckService.initialSetupScreenNecessary) {
+
+            if (healthCheckReportReadable && initialCheckScreenAllowed) {
                 openWindow(INITIAL_CHECK_SCREEN, WindowManager.OpenType.DIALOG)
             }
-        } else {
-            showNotification(formatMessage('initialCheckAdministratorRequired'), Frame.NotificationType.ERROR)
+            else {
+                def msg = messages.getMessage('de.diedavids.cuba.healthcheck.web.screens', 'initialCheckAdministratorRequired')
+                showNotification(msg, Frame.NotificationType.ERROR)
+            }
         }
     }
 
