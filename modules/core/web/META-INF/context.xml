@@ -7,19 +7,10 @@
               name="jdbc/CubaDS"
               password=""
               type="javax.sql.DataSource"
-              url="jdbc:hsqldb:hsql://localhost/ddchc3"
+              url="jdbc:hsqldb:hsql://localhost/ddchc5"
               username="sa"/>
     <!-- Switch off session serialization -->
     <Manager pathname=""/>
-    <!--<Resource driverClassName="oracle.jdbc.OracleDriver"
-          maxIdle="2"
-          maxTotal="20"
-          maxWaitMillis="5000"
-          name="jdbc/CubaDS"
-          password="ddchc"
-          type="javax.sql.DataSource"
-          url="jdbc:oracle:thin:@//localhost/XE"
-          username="ddchc"/>-->
     <!--<Resource driverClassName="org.postgresql.Driver"
           maxIdle="2"
           maxTotal="20"
@@ -29,4 +20,13 @@
           type="javax.sql.DataSource"
           url="jdbc:postgresql://localhost/postgres"
           username="postgres"/>-->
+    <!--<Resource driverClassName="oracle.jdbc.OracleDriver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password="ddchc"
+          type="javax.sql.DataSource"
+          url="jdbc:oracle:thin:@//localhost/XE"
+          username="ddchc"/>-->
 </Context>
