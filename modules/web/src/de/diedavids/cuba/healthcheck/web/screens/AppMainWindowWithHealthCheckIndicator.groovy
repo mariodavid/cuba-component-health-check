@@ -26,10 +26,6 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
     @Inject
     Security security
 
-    @Inject
-    Messages messages
-
-
     private String INITIAL_CHECK_SCREEN = 'ddchc$InitialCheck'
 
     @Override
