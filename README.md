@@ -14,11 +14,41 @@ You can define your own health checks at development time or at runtime that wil
 * Do the custom filters stored in the database fit to the entity model
 * Have all database changelog scripts been applied successfully
 
-## Installation
-Currently you have to [download](https://github.com/mariodavid/cuba-component-health-check/archive/master.zip) the app-component manually and import it into Studio. After opening it in studio, you have to execute "Run > Install app component". 
-After that you can go into your project and add the dependency to you project through "Project Properties > Edit > custom components (+) > cuba-component-health-check".
 
-*Note*: This manual installation step will probably simplify with Version 6.6 of CUBA and studio.
+## Installation
+
+1. Add the following maven repository `https://dl.bintray.com/mariodavid/cuba-components` to the build.gradle of your CUBA application:
+
+
+    buildscript {
+        
+        //...
+        
+        repositories {
+        
+            // ...
+        
+            maven {
+                url  "https://dl.bintray.com/mariodavid/cuba-components"
+            }
+        }
+        
+        // ...
+    }
+
+2. Select a version of the add-on which is compatible with the platform version used in your project:
+
+| Platform Version | Add-on Version |
+| ---------------- | -------------- |
+| 6.5.x            | 0.1.x          |
+
+The latest version is: `0.1.0`
+
+Add custom application component to your project:
+
+* Artifact group: `de.diedavids.cuba.healthcheck`
+* Artifact name: `health-check-global`
+* Version: *add-on version*
 
 
 ## Health check overview
