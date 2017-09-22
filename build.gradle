@@ -31,6 +31,9 @@ def servletApi = 'org.apache.tomcat:tomcat-servlet-api:8.0.26'
 apply(plugin: 'idea')
 apply(plugin: 'cuba')
 
+
+def bintrayRepositoryUrl = "https://api.bintray.com/maven/mariodavid/cuba-components/cuba-component-health-check/;publish=1"
+
 cuba {
     artifact {
         group = 'de.diedavids.cuba.healthcheck'
@@ -42,13 +45,13 @@ cuba {
     }
     uploadRepository {
         if (cuba.artifact.isSnapshot) {
-            url = System.env.UPLOAD_REPOSITORY_SNAPSHOT
+            url = System.properties['uploadRepositorySnapshot'] ?: System.env.UPLOAD_REPOSITORY_SNAPSHOT
         } else {
-            url = System.env.UPLOAD_REPOSITORY_RELEASE
+            url = System.properties['uploadRepositoryRelease'] ?: System.env.UPLOAD_REPOSITORY_RELEASE ?: bintrayRepositoryUrl
         }
 
-        user = System.env.UPLOAD_REPOSITORY_USERNAME
-        password = System.env.UPLOAD_REPOSITORY_PASSWORD
+        user = System.properties['uploadRepositoryUsername'] ?: System.env.UPLOAD_REPOSITORY_USERNAME
+        password = System.properties['uploadRepositoryPassword'] ?:System.env.UPLOAD_REPOSITORY_PASSWORD
     }
     ide {
          
