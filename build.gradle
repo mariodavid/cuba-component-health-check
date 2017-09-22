@@ -37,8 +37,8 @@ def bintrayRepositoryUrl = "https://api.bintray.com/maven/mariodavid/cuba-compon
 cuba {
     artifact {
         group = 'de.diedavids.cuba.healthcheck'
-        version = '0.2.0'
-        isSnapshot = false
+        version = '0.3.0'
+        isSnapshot = true
     }
     tomcat {
         dir = "$project.rootDir/deploy/tomcat"
