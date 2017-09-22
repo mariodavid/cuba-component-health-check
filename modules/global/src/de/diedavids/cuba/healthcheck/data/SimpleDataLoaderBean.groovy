@@ -28,7 +28,7 @@ class SimpleDataLoaderBean implements SimpleDataLoader {
                 .setId(id)
                 .setView(view)
 
-        dataManager.load(loadContext)
+        dataManager.load(loadContext) as E
     }
 
 
@@ -40,7 +40,7 @@ class SimpleDataLoaderBean implements SimpleDataLoader {
                 .setQuery(query)
                 .setView(view)
 
-        dataManager.load(loadContext)
+        dataManager.load(loadContext) as E
     }
 
     @Override
@@ -50,7 +50,7 @@ class SimpleDataLoaderBean implements SimpleDataLoader {
                 .setQuery(query)
                 .setView(view)
 
-        dataManager.load(loadContext)
+        dataManager.load(loadContext) as E
     }
 
     @Override
@@ -59,16 +59,16 @@ class SimpleDataLoaderBean implements SimpleDataLoader {
         LoadContext loadContext = getLoadContext(entityClass)
                 .setQuery(query)
                 .setView(view)
-        dataManager.loadList(loadContext)
+        dataManager.loadList(loadContext)as Collection<E>
     }
 
     protected LoadContext.Query createQueryForSelectAll(String metaClassName) {
         LoadContext.createQuery(getSelectPart(metaClassName))
     }
 
-    protected LoadContext.Query createQueryByReferenz(String metaClassName, String propertyPath, BaseUuidEntity referenz) {
-        def queryString = "${getSelectPart(metaClassName)} where e.${propertyPath}.id = :referenzId"
-        LoadContext.createQuery(queryString).setParameter('referenzId', referenz.id)
+    protected LoadContext.Query createQueryByReferenz(String metaClassName, String propertyPath, BaseUuidEntity reference) {
+        def queryString = "${getSelectPart(metaClassName)} where e.${propertyPath}.id = :referenceId"
+        LoadContext.createQuery(queryString).setParameter('referenceId', reference.id)
     }
 
     protected LoadContext.Query createQueryByProperty(String metaClassName, String propertyPath, String propertyValue) {
