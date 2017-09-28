@@ -64,12 +64,14 @@ public class AppMainWindowWithHealthCheckIndicator extends AppMainWindow {
                 } else {
                     healthCheckStatusBtn.styleName = 'friendly'
                 }
-                healthCheckStatusBtn.action = new BaseAction('showHealthCheck') {
+                def statusBtnAction = new BaseAction('showHealthCheck') {
                     @Override
                     void actionPerform(Component component) {
                         openEditor(healthCheckReport, WindowManager.OpenType.NEW_TAB, [showHistory: true])
                     }
                 }
+                statusBtnAction.caption = ''
+                healthCheckStatusBtn.action = statusBtnAction
             }
         }
     }
