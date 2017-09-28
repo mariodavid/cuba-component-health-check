@@ -6,7 +6,7 @@ import de.diedavids.cuba.healthcheck.core.healthchecks.DatabaseEntityInstanceAva
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReportAvailableHealthCheck extends DatabaseEntityInstanceAvailableHealthCheck<Role> {
+public class RoleAvailableHealthCheck extends DatabaseEntityInstanceAvailableHealthCheck<Role> {
 
     public static final String MY_ROLE_NAME = "my-role";
 
@@ -17,6 +17,6 @@ public class ReportAvailableHealthCheck extends DatabaseEntityInstanceAvailableH
 
     @Override
     protected String getConfigurationCode() {
-        return "ReportAvailableHealthCheck";
+        return "RoleAvailableHealthCheck";
     }
 }

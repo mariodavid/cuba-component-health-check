@@ -7,6 +7,11 @@ This application component automatically checks your [CUBA](https://www.cuba-pla
 It will show the results of the health check to the administrator of the application with information on what went wrong and information
 on how to solve the issue.
 
+This helps the administrator of your software in two ways:
+
+1. installing and configuring the software as you (as a developer) intended
+2. make problems with the running software visible to the administrator
+
 You can define your own health checks at development time or at runtime that will the state of the application. Here are some examples of this checks:
 
 * Is a dependent service alive and able to take requests
@@ -177,6 +182,7 @@ To create a runtime health check, go to `Administration > Health Check > Health 
 
 
 ## Inital checks
+
 Besides recurring checks that have to be executed over and over again to make sure the system is still in a good shape, 
 there is an additional type of checks: *initial checks*.
 
@@ -184,3 +190,13 @@ The purpose of these checks is to guide the administrator through the initial in
 
 Those checks have to be checks that have been created at development time. The corresponding health check configuration database entry
 should set the boolean flag `initial` to true.
+
+If the administrator logs in for the first time, the software will present a dialog window, showing all initial checks, that
+haven't been run successfully. 
+
+With this information as well as the corresponding descriptions and solution information
+the administrator is able to configure the system so that the state of the running software is just as the
+developer intended it to be to work properly.
+
+
+![Screenshot initial checks overview](https://github.com/mariodavid/cuba-component-health-check/blob/master/img/initial-health-checks-overview.png)
