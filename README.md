@@ -200,3 +200,9 @@ developer intended it to be to work properly.
 
 
 ![Screenshot initial checks overview](https://github.com/mariodavid/cuba-component-health-check/blob/master/img/initial-health-checks-overview.png)
+
+For normal users, that do not have the permission, to see these detailed information about the healthiness
+of the system, the application will present the user an error after login saying that the initial configuration
+of the software has not been done. This is only true for checks that are of type "initial".
+
+ 
