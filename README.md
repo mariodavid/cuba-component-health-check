@@ -43,7 +43,7 @@ You can define your own health checks at development time or at runtime that wil
 | 6.6.x            | 0.2.x          |
 | 6.5.x            | 0.1.x          |
 
-The latest version is: `0.2.0`
+The latest version is: `0.2.1`
 
 Add custom application component to your project:
 
