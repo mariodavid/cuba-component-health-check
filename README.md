@@ -49,7 +49,7 @@ You can define your own health checks at development time or at runtime that wil
 | 6.6.x            | 0.2.x          |
 | 6.5.x            | 0.1.x          |
 
-The latest version is: `0.2.1`
+The latest version is: [ ![Download](https://api.bintray.com/packages/mariodavid/cuba-components/cuba-component-health-check/images/download.svg) ](https://bintray.com/mariodavid/cuba-components/cuba-component-health-check/_latestVersion)
 
 Add custom application component to your project:
 
