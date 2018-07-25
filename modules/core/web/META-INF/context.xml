@@ -29,4 +29,13 @@
           type="javax.sql.DataSource"
           url="jdbc:postgresql://localhost/ddchc"
           username="postgres"/>-->
+    <!--<Resource driverClassName="com.mysql.jdbc.Driver"
+          maxIdle="2"
+          maxTotal="20"
+          maxWaitMillis="5000"
+          name="jdbc/CubaDS"
+          password="mysql"
+          type="javax.sql.DataSource"
+          url="jdbc:mysql://localhost/ddchc?useSSL=false&amp;allowMultiQueries=true&amp;allowPublicKeyRetrieval=true"
+          username="root"/>-->
 </Context>
