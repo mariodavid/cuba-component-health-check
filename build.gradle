@@ -1,6 +1,6 @@
 
 buildscript {
-    ext.cubaVersion = '6.7.13'
+    ext.cubaVersion = '6.8.10'
     repositories {
         maven {
             url 'https://repo.cuba-platform.com/content/groups/work'
@@ -391,7 +391,7 @@ task restart(dependsOn: ['stop', ':health-check-core:deploy', ':health-check-web
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
+    gradleVersion = '4.3.1'
 }
 
 apply from: 'extra.gradle'
