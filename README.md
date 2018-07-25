@@ -55,6 +55,7 @@ The following databases are supported by this application component:
 
 * HSQLDB
 * PostgreSQL
+* MySQL
 * Oracle
 
 ## Health check overview
