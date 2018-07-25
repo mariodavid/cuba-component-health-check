@@ -28,6 +28,7 @@ You can define your own health checks at development time or at runtime that wil
 
 | Platform Version | Add-on Version |
 | ---------------- | -------------- |
+| 6.8.x            | 0.4.x          |
 | 6.7.x            | 0.3.x          |
 | 6.6.x            | 0.2.x          |
 | 6.5.x            | 0.1.x          |
@@ -45,6 +46,16 @@ dependencies {
   appComponent("de.diedavids.cuba.healthcheck:health-check-global:*addon-version*")
 }
 ```
+
+
+
+## Supported DBMS
+
+The following databases are supported by this application component:
+
+* HSQLDB
+* PostgreSQL
+* Oracle
 
 ## Health check overview
 
